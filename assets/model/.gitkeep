@@ -1,0 +1,4 @@
+# Place skin_model.tflite here after running:
+#   python model/convert_keras_to_tflite.py \
+#       --input "C:/Users/Dwibble/Downloads/phase_a_best.keras" \
+#       --output assets/model/skin_model.tflite
