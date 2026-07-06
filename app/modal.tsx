@@ -1,4 +1,5 @@
 import { useRouter } from 'expo-router';
+import { Font } from '../constants/theme';
 import React from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -54,14 +55,14 @@ const s = StyleSheet.create({
   topBar:        { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 20, paddingVertical: 14, borderBottomWidth: 1, borderBottomColor: '#EDE9E3' },
   closeBtn:      { width: 36, height: 36, borderRadius: 0, backgroundColor: '#fff', borderWidth: 1, borderColor: '#EDE9E3', alignItems: 'center', justifyContent: 'center' },
   closeTxt:      { fontSize: 14, color: DIM },
-  topTitle:      { fontSize: 15, fontWeight: '700', color: DARK, letterSpacing: -0.3 },
+  topTitle:      { fontSize: 15, fontFamily: Font.bodySemiBold, color: DARK, letterSpacing: -0.3 },
   content:       { paddingHorizontal: 20, paddingTop: 20, paddingBottom: 36 },
   lead:          { fontSize: 14, color: DIM, lineHeight: 22, marginBottom: 20 },
   card:          { flexDirection: 'row', backgroundColor: '#fff', borderRadius: 0, padding: 16, marginBottom: 10, borderWidth: 1, borderColor: '#EDE9E3', gap: 14 },
   badge:         { width: 44, height: 44, borderRadius: 0, backgroundColor: DARK, alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
-  badgeLetter:   { fontSize: 20, fontWeight: '800', color: '#F0EDE8' },
+  badgeLetter:   { fontSize: 20, fontFamily: Font.display, color: '#F0EDE8' },
   cardText:      { flex: 1 },
-  cardTitle:     { fontSize: 13, fontWeight: '700', color: DARK, marginBottom: 5 },
+  cardTitle:     { fontSize: 13, fontFamily: Font.bodySemiBold, color: DARK, marginBottom: 5 },
   cardBody:      { fontSize: 12, color: DIM, lineHeight: 18 },
   disclaimer:    { marginTop: 12, padding: 14, backgroundColor: '#fff', borderRadius: 0, borderWidth: 1, borderColor: '#EDE9E3' },
   disclaimerTxt: { fontSize: 11, color: FAINT, textAlign: 'center', lineHeight: 17 },

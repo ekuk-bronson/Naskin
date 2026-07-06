@@ -212,11 +212,11 @@ const styles = StyleSheet.create({
   googleBtn:         { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 12, backgroundColor: '#fff', borderWidth: 2, borderColor: Palette.ink, borderRadius: 0, paddingVertical: 16, marginBottom: 18, ...hardShadow(4) },
   googleBtnDisabled: { opacity: 0.55 },
   googleIcon:        { width: 24, height: 24, borderRadius: 0, backgroundColor: '#4285F4', alignItems: 'center', justifyContent: 'center' },
-  googleIconText:    { fontSize: 13, fontWeight: '800', color: '#fff', letterSpacing: -0.2 },
+  googleIconText:    { fontSize: 13, fontFamily: Font.display, color: '#fff', letterSpacing: -0.2 },
   googleBtnText:     { fontFamily: Font.mono, fontSize: 13, color: DARK, letterSpacing: 0.3, textTransform: 'uppercase' },
   configNote:        { fontSize: 10, color: STONE, textAlign: 'center', lineHeight: 16, marginBottom: 14 },
   guestBtn:          { alignItems: 'center', paddingVertical: 12, marginBottom: 10 },
-  guestBtnText:      { fontSize: 13, color: STONE, fontWeight: '600', textDecorationLine: 'underline' },
+  guestBtnText:      { fontSize: 13, color: STONE, fontFamily: Font.bodyMed, textDecorationLine: 'underline' },
   disclaimer:        { fontSize: 10, color: FAINT, textAlign: 'center', lineHeight: 16 },
   version:           { fontSize: 9, color: FAINT, textAlign: 'center', letterSpacing: 0.8, paddingBottom: 6 },
 });

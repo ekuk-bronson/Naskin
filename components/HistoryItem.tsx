@@ -1,4 +1,5 @@
 import React from 'react';
+import { Font } from '../constants/theme';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { RISK_LEVELS, scoreColor } from '../constants/riskLevels';
 import type { Mole } from '../services/storage';
@@ -110,7 +111,7 @@ const styles = StyleSheet.create({
   },
   avatarDot: { width: 22, height: 20, borderRadius: 99, backgroundColor: '#2B3BEF' },
   meta: { flex: 1, minWidth: 0 },
-  name: { fontSize: 13, fontWeight: '700', color: DARK, letterSpacing: -0.2, marginBottom: 3 },
+  name: { fontSize: 13, fontFamily: Font.bodySemiBold, color: DARK, letterSpacing: -0.2, marginBottom: 3 },
   loc:  { fontSize: 10, color: FAINT },
   riskPill: {
     flexDirection: 'row',
@@ -122,7 +123,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   riskDot:      { width: 7, height: 7, borderRadius: 0 },
-  riskPillText: { fontSize: 11, fontWeight: '700', letterSpacing: 0.2 },
+  riskPillText: { fontSize: 11, fontFamily: Font.bodySemiBold, letterSpacing: 0.2 },
   chart: {
     flexDirection: 'row',
     alignItems: 'flex-end',

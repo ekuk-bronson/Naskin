@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { Font } from '../constants/theme';
 import {
   View,
   TouchableOpacity,
@@ -212,7 +213,7 @@ const styles = StyleSheet.create({
   // Distance badge
   distanceBadge:  { position: 'absolute', alignSelf: 'center', flexDirection: 'row', alignItems: 'center', gap: 7, borderWidth: 1, borderRadius: 0, borderColor: 'rgba(255,255,255,0.2)', backgroundColor: 'rgba(0,0,0,0.45)', paddingHorizontal: 14, paddingVertical: 8, zIndex: 10 },
   distanceDot:    { width: 8, height: 8, borderRadius: 99 },
-  distanceLabel:  { fontSize: 13, fontWeight: '700', letterSpacing: 0.2 },
+  distanceLabel:  { fontSize: 13, fontFamily: Font.bodySemiBold, letterSpacing: 0.2 },
   // Aim ring
   center:         { ...StyleSheet.absoluteFillObject, alignItems: 'center', justifyContent: 'center' },
   ring:           { position: 'absolute', borderWidth: 2.5 },
@@ -226,7 +227,7 @@ const styles = StyleSheet.create({
   meterWrap:      { flex: 1, alignItems: 'center', gap: 4 },
   meterLabelTop:  { fontSize: 8, color: 'rgba(255,255,255,0.4)' },
   meterLabelBot:  { fontSize: 8, color: 'rgba(255,255,255,0.4)' },
-  meterCm:        { fontSize: 10, fontWeight: '800', color: '#fff', letterSpacing: 0.2, marginTop: 2 },
+  meterCm:        { fontSize: 10, fontFamily: Font.display, color: '#fff', letterSpacing: 0.2, marginTop: 2 },
   meterTrack:     { flex: 1, width: 10, borderRadius: 99, overflow: 'hidden', position: 'relative', gap: 1 },
   meterZone:      { width: '100%', borderRadius: 0 },
   meterIndicator: { position: 'absolute', left: -4, width: 18, height: 18, borderRadius: 99, marginTop: -9, borderWidth: 2.5, borderColor: '#fff', elevation: 4 },
@@ -235,11 +236,11 @@ const styles = StyleSheet.create({
   sideBtn:        { width: 46, height: 46, borderRadius: 0, borderWidth: 1, borderColor: 'rgba(255,255,255,0.2)', backgroundColor: 'rgba(0,0,0,0.4)', alignItems: 'center', justifyContent: 'center' },
   sideBtnActive:  { borderColor: 'rgba(255,255,255,0.7)' },
   sideBtnIcon:    { fontSize: 20 },
-  sideBtnLabel:   { fontSize: 8, color: 'rgba(255,255,255,0.55)', fontWeight: '600', letterSpacing: 0.3, marginTop: 2 },
+  sideBtnLabel:   { fontSize: 8, color: 'rgba(255,255,255,0.55)', fontFamily: Font.bodyMed, letterSpacing: 0.3, marginTop: 2 },
   shutterOuter:   { width: 72, height: 72, borderRadius: 36, backgroundColor: 'rgba(255,255,255,0.15)', borderWidth: 3, alignItems: 'center', justifyContent: 'center' },
   shutterInner:   { width: 54, height: 54, borderRadius: 0, opacity: 0.9 },
   // Permissions
   permText:       { color: 'rgba(255,255,255,0.7)', fontSize: 14, marginBottom: 16 },
   permBtn:        { borderWidth: 1, borderColor: 'rgba(255,255,255,0.3)', borderRadius: 0, paddingHorizontal: 20, paddingVertical: 10 },
-  permBtnText:    { color: '#fff', fontWeight: '700', fontSize: 13 },
+  permBtnText:    { color: '#fff', fontFamily: Font.bodySemiBold, fontSize: 13 },
 });

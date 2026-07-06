@@ -1,4 +1,5 @@
 import React from 'react';
+import { Font } from '../constants/theme';
 import { Text, View } from 'react-native';
 import { useWindowDimensions } from 'react-native';
 import type { MoleHistoryPoint } from '../services/storage';
@@ -87,7 +88,7 @@ export function LineChart({ history, outerPadding = 72 }: Props) {
       <Text style={{
         position: 'absolute', left: last.x - 16, top: last.y - 24,
         width: 32, textAlign: 'center',
-        fontSize: 12, fontWeight: '800', color: lastColor, letterSpacing: -0.3,
+        fontSize: 12, fontFamily: Font.display, color: lastColor, letterSpacing: -0.3,
       }}>{last.s}</Text>
 
       {/* Month axis */}

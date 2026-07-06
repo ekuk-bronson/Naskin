@@ -1,4 +1,5 @@
 import React from 'react';
+import { Font } from '../constants/theme';
 import { View, Text, StyleSheet } from 'react-native';
 import { ABCDE_LABELS, scoreColor } from '../constants/riskLevels';
 import type { ABCDEScore } from '../services/storage';
@@ -66,8 +67,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 10,
   },
-  label: { fontSize: 12, fontWeight: '700', color: DARK, letterSpacing: -0.2 },
-  score: { fontSize: 13, fontWeight: '800' },
+  label: { fontSize: 12, fontFamily: Font.bodySemiBold, color: DARK, letterSpacing: -0.2 },
+  score: { fontSize: 13, fontFamily: Font.display },
   barBg: {
     height: 4,
     backgroundColor: '#F0EDE8',

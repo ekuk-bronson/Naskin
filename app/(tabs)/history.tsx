@@ -1,4 +1,5 @@
 import { useFocusEffect, useRouter } from 'expo-router';
+import { Font } from '../../constants/theme';
 import React, { useCallback, useState } from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -78,21 +79,21 @@ export default function HistoryScreen() {
 const s = StyleSheet.create({
   root:        { flex: 1, backgroundColor: '#F1EFEA' },
   header:      { paddingHorizontal: 24, paddingTop: 14, paddingBottom: 14, borderBottomWidth: 1, borderBottomColor: '#EDE9E3' },
-  sup:         { fontSize: 9, color: STONE, letterSpacing: 2.2, textTransform: 'uppercase', fontWeight: '600', marginBottom: 4 },
-  title:       { fontSize: 26, fontWeight: '800', color: DARK, letterSpacing: -0.8, marginBottom: 2 },
+  sup:         { fontSize: 9, color: STONE, letterSpacing: 2.2, textTransform: 'uppercase', fontFamily: Font.bodyMed, marginBottom: 4 },
+  title:       { fontSize: 26, fontFamily: Font.display, color: DARK, letterSpacing: -0.8, marginBottom: 2 },
   subtitle:    { fontSize: 11, color: FAINT, fontWeight: '400' },
   // Stats strip
   statsRow:    { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#EDE9E3', backgroundColor: '#fff' },
   statCell:    { flex: 1, alignItems: 'center', paddingVertical: 12, borderRightWidth: 1, borderRightColor: '#EDE9E3' },
-  statVal:     { fontSize: 18, fontWeight: '800', color: DARK, letterSpacing: -0.5 },
+  statVal:     { fontSize: 18, fontFamily: Font.display, color: DARK, letterSpacing: -0.5 },
   statLbl:     { fontSize: 8, color: FAINT, textTransform: 'uppercase', letterSpacing: 0.8, marginTop: 2 },
   // List
   scroll:      { flex: 1 },
   scrollContent: { paddingHorizontal: 20, paddingTop: 14, paddingBottom: 24 },
   emptyWrap:   { alignItems: 'center', paddingVertical: 60, gap: 8 },
   emptyIcon:   { fontSize: 36, color: FAINT, marginBottom: 4 },
-  emptyTitle:  { fontSize: 15, fontWeight: '700', color: DIM },
+  emptyTitle:  { fontSize: 15, fontFamily: Font.bodySemiBold, color: DIM },
   emptyHint:   { fontSize: 12, color: FAINT, textAlign: 'center', lineHeight: 18 },
   emptyCta:    { marginTop: 18, paddingVertical: 14, paddingHorizontal: 24, borderRadius: 0, backgroundColor: DARK, shadowColor: DARK, shadowOpacity: 0.15, shadowRadius: 12, shadowOffset: { width: 0, height: 4 }, elevation: 4 },
-  emptyCtaTxt: { fontSize: 13, fontWeight: '700', color: '#F0EDE8', letterSpacing: 0.3 },
+  emptyCtaTxt: { fontSize: 13, fontFamily: Font.bodySemiBold, color: '#F0EDE8', letterSpacing: 0.3 },
 });
