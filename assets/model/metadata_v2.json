@@ -1,0 +1,24 @@
+{
+  "model": "DermaMap v2.0",
+  "arch": "MobileNetV3-Large",
+  "img_size": 224,
+  "input_range": [
+    0.0,
+    255.0
+  ],
+  "input_dtype": "float32",
+  "preprocessing": "8-step DermaMap pipeline (model/preprocessing.py) -> 224x224 float32 [0,255]",
+  "channel_order": "RGB",
+  "normalization": "built-in (inside model)",
+  "threshold_f1": 0.36499999999999994,
+  "threshold_recall90": 0.30999999999999994,
+  "recommended_threshold": 0.30999999999999994,
+  "auc_roc": 0.9205046607293303,
+  "auc_pr": 0.8879387892756037,
+  "classes": {
+    "0": "benign",
+    "1": "malignant"
+  },
+  "tta": "4_rotations_x_2_flips",
+  "note": "Research/demo only. Not a medical diagnostic tool."
+}
