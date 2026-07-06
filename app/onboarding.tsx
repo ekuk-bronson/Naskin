@@ -16,10 +16,10 @@ import { useLocale } from '../services/i18n';
 
 const { width: W } = Dimensions.get('window');
 
-const BG     = '#F8F6F3';
-const DARK   = '#1C1A18';
-const STONE  = '#8B7355';
-const DIM    = '#9A9087';
+const BG     = '#F1EFEA';
+const DARK   = '#141412';
+const STONE  = '#2B3BEF';
+const DIM    = '#6E6C66';
 const FAINT  = '#C5BDB4';
 const BORDER = '#EDE9E3';
 
@@ -298,21 +298,21 @@ const vis = StyleSheet.create({
     shadowColor: DARK, shadowOpacity: 0.18, shadowRadius: 18,
     shadowOffset: { width: 0, height: 6 }, elevation: 6,
   },
-  logoInner:    { width: 44, height: 28, borderRadius: 14, backgroundColor: STONE, opacity: 0.9 },
+  logoInner:    { width: 44, height: 28, borderRadius: 0, backgroundColor: STONE, opacity: 0.9 },
   welcomeSub:   { marginTop: 18, fontSize: 13, color: STONE, letterSpacing: 1.8, fontWeight: '500' },
 
   stepsWrap:    { marginBottom: 8 },
   stepChip: {
     flexDirection: 'row', alignItems: 'center', backgroundColor: BORDER,
-    borderRadius: 12, paddingVertical: 14, paddingHorizontal: 18, marginBottom: 12,
+    borderRadius: 0, paddingVertical: 14, paddingHorizontal: 18, marginBottom: 12,
   },
-  stepBadge:    { width: 28, height: 28, borderRadius: 14, backgroundColor: DARK, alignItems: 'center', justifyContent: 'center' },
+  stepBadge:    { width: 28, height: 28, borderRadius: 0, backgroundColor: DARK, alignItems: 'center', justifyContent: 'center' },
   stepNum:      { fontSize: 13, fontWeight: '700', color: BG },
   stepText:     { marginLeft: 14, fontSize: 15, color: DARK, fontWeight: '500' },
 
   abcdeRow:     { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 },
   abcdeItem:    { flex: 1, alignItems: 'center', marginHorizontal: 4 },
-  abcdeBox:     { width: 52, height: 52, borderRadius: 12, backgroundColor: BORDER, alignItems: 'center', justifyContent: 'center' },
+  abcdeBox:     { width: 52, height: 52, borderRadius: 0, backgroundColor: BORDER, alignItems: 'center', justifyContent: 'center' },
   abcdeLetter:  { fontSize: 22, fontWeight: '800', color: DARK },
   abcdeLabel:   { marginTop: 8, fontSize: 11, color: STONE, fontWeight: '500', letterSpacing: 0.4, textAlign: 'center' },
 
@@ -321,7 +321,7 @@ const vis = StyleSheet.create({
   profileLbl:   { fontSize: 9, color: FAINT, letterSpacing: 2.0, textTransform: 'uppercase', fontWeight: '600', marginBottom: 10 },
   profileInput: { fontSize: 16, fontWeight: '600', color: DARK, borderBottomWidth: 1.5, borderBottomColor: BORDER, paddingVertical: 8, paddingHorizontal: 2 },
   profileChips: { flexDirection: 'row', gap: 8 },
-  profileChip:  { flex: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: 12, borderRadius: 12, borderWidth: 1.5, borderColor: BORDER, backgroundColor: BG, gap: 2 },
+  profileChip:  { flex: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: 12, borderRadius: 0, borderWidth: 1.5, borderColor: BORDER, backgroundColor: BG, gap: 2 },
   profileChipA: { backgroundColor: DARK, borderColor: DARK },
   pct:          { fontSize: 13, color: DIM, fontWeight: '600' },
   pctA:         { fontSize: 13, color: BG,  fontWeight: '700' },
@@ -335,7 +335,7 @@ const vis = StyleSheet.create({
 
 const dot = StyleSheet.create({
   row:  { flexDirection: 'row', justifyContent: 'center', alignItems: 'center', height: 20 },
-  base: { height: 7, borderRadius: 4, marginHorizontal: 3 },
+  base: { height: 7, borderRadius: 0, marginHorizontal: 3 },
 });
 
 const s = StyleSheet.create({
@@ -349,7 +349,7 @@ const s = StyleSheet.create({
   title:     { fontSize: 28, fontWeight: '800', color: DARK, letterSpacing: -0.8, lineHeight: 36, marginBottom: 14 },
   body:      { fontSize: 15, color: DIM, lineHeight: 24, fontWeight: '400' },
   bottom:    { paddingHorizontal: 32, paddingTop: 16, borderTopWidth: 1, borderTopColor: BORDER, backgroundColor: BG },
-  btn:       { height: 54, backgroundColor: DARK, borderRadius: 14, justifyContent: 'center', alignItems: 'center', marginTop: 20 },
+  btn:       { height: 54, backgroundColor: DARK, borderRadius: 0, justifyContent: 'center', alignItems: 'center', marginTop: 20 },
   btnText:   { fontSize: 16, fontWeight: '700', color: BG, letterSpacing: 0.3 },
   skip:      { height: 44, justifyContent: 'center', alignItems: 'center', marginTop: 8 },
   skipHidden:{ opacity: 0 },

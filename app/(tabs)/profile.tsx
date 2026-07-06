@@ -13,7 +13,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useLocale } from '../../services/i18n';
 import { useTextScale } from '../../services/textScale';
 
-const BG = '#F8F6F3', DARK = '#1C1A18', STONE = '#8B7355', DIM = '#9A9087', FAINT = '#C5BDB4', BORDER = '#EDE9E3';
+const BG = '#F1EFEA', DARK = '#141412', STONE = '#2B3BEF', DIM = '#6E6C66', FAINT = '#C5BDB4', BORDER = '#EDE9E3';
 
 const INTERVAL_DAYS = [7, 14, 30] as const;
 
@@ -421,12 +421,12 @@ const s = StyleSheet.create({
 
   userCard: {
     flexDirection: 'row', alignItems: 'center', gap: 12,
-    backgroundColor: '#fff', borderWidth: 1, borderColor: BORDER, borderRadius: 20,
+    backgroundColor: '#fff', borderWidth: 1, borderColor: BORDER, borderRadius: 0,
     padding: 14, marginBottom: 12,
     shadowColor: DARK, shadowOpacity: 0.04, shadowRadius: 10, shadowOffset: { width: 0, height: 3 }, elevation: 2,
   },
-  avatar:    { width: 46, height: 46, borderRadius: 23, flexShrink: 0, backgroundColor: BORDER },
-  avatarFb:  { width: 46, height: 46, borderRadius: 23, backgroundColor: DARK, alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
+  avatar:    { width: 46, height: 46, borderRadius: 0, flexShrink: 0, backgroundColor: BORDER },
+  avatarFb:  { width: 46, height: 46, borderRadius: 0, backgroundColor: DARK, alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
   avatarInit:{ fontSize: 20, fontWeight: '800', color: '#F0EDE8' },
   userName:  { fontSize: 13, fontWeight: '700', color: DARK, letterSpacing: -0.2, marginBottom: 2 },
   userEmail: { fontSize: 11, color: FAINT },
@@ -441,7 +441,7 @@ const s = StyleSheet.create({
   signOutTxt:{ fontSize: 11, color: DIM, fontWeight: '600' },
 
   reportCard: {
-    borderWidth: 1, borderColor: BORDER, borderRadius: 24, padding: 20, marginBottom: 12, backgroundColor: '#fff',
+    borderWidth: 1, borderColor: BORDER, borderRadius: 0, padding: 20, marginBottom: 12, backgroundColor: '#fff',
     shadowColor: DARK, shadowOpacity: 0.04, shadowRadius: 16, shadowOffset: { width: 0, height: 4 }, elevation: 3,
   },
   reportHead: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 18, paddingBottom: 14, borderBottomWidth: 1, borderBottomColor: '#F5F2EE' },
@@ -458,24 +458,24 @@ const s = StyleSheet.create({
   emptyNote: { fontSize: 12, color: FAINT, textAlign: 'center', paddingVertical: 12 },
   reportRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 11, borderBottomWidth: 1, borderBottomColor: '#F5F2EE' },
   reportLeft:{ flexDirection: 'row', alignItems: 'center', gap: 10 },
-  dot:       { width: 7, height: 7, borderRadius: 4 },
+  dot:       { width: 7, height: 7, borderRadius: 0 },
   reportMole:{ fontSize: 12, color: DARK, fontWeight: '600', letterSpacing: -0.1 },
   reportLoc: { fontSize: 10, color: FAINT, marginTop: 1 },
   reportLevel:{ fontSize: 13, letterSpacing: -0.2, marginBottom: 2 },
   reportRisk: { fontSize: 9, color: FAINT, marginTop: 0, maxWidth: 160, textAlign: 'right' },
 
   alertCard: {
-    borderWidth: 1, borderColor: '#F0D8DC', backgroundColor: '#FFF5F7', borderRadius: 20, padding: 16, marginBottom: 12,
+    borderWidth: 1, borderColor: '#F0D8DC', backgroundColor: '#FFF5F7', borderRadius: 0, padding: 16, marginBottom: 12,
     shadowColor: '#E8003D', shadowOpacity: 0.05, shadowRadius: 12, shadowOffset: { width: 0, height: 3 }, elevation: 2,
   },
   alertTitle:{ fontSize: 12, fontWeight: '700', color: '#E8003D', marginBottom: 12 },
   alertRow:  { flexDirection: 'row', gap: 10, alignItems: 'flex-start', marginBottom: 10 },
-  alertDot:  { width: 6, height: 6, borderRadius: 3, backgroundColor: '#E8003D', marginTop: 3, flexShrink: 0 },
+  alertDot:  { width: 6, height: 6, borderRadius: 0, backgroundColor: '#E8003D', marginTop: 3, flexShrink: 0 },
   alertMole: { fontSize: 12, color: DARK, fontWeight: '600', marginBottom: 2 },
   alertRec:  { fontSize: 11, color: DIM, lineHeight: 16 },
 
   card: {
-    backgroundColor: '#fff', borderWidth: 1, borderColor: BORDER, borderRadius: 20, padding: 16, marginBottom: 12,
+    backgroundColor: '#fff', borderWidth: 1, borderColor: BORDER, borderRadius: 0, padding: 16, marginBottom: 12,
     shadowColor: DARK, shadowOpacity: 0.03, shadowRadius: 8, shadowOffset: { width: 0, height: 2 }, elevation: 1,
   },
   cardSup:   { fontSize: 9, color: FAINT, letterSpacing: 2, textTransform: 'uppercase', fontWeight: '600', marginBottom: 14 },
@@ -497,7 +497,7 @@ const s = StyleSheet.create({
   nextReminder:  { fontSize: 10, color: STONE, fontWeight: '500', marginTop: 10, letterSpacing: 0.2 },
 
   exportBtn: {
-    paddingVertical: 16, borderRadius: 20, backgroundColor: DARK, alignItems: 'center', marginBottom: 20,
+    paddingVertical: 16, borderRadius: 0, backgroundColor: DARK, alignItems: 'center', marginBottom: 20,
     shadowColor: DARK, shadowOpacity: 0.2, shadowRadius: 14, shadowOffset: { width: 0, height: 5 }, elevation: 5,
   },
   exportTxt: { fontSize: 14, fontWeight: '700', color: '#F0EDE8', letterSpacing: 0.3 },
@@ -506,7 +506,7 @@ const s = StyleSheet.create({
 
   // Profile-edit modal
   modalBackdrop: { flex: 1, backgroundColor: 'rgba(28,26,24,0.45)', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 20 },
-  modalCard:     { width: '100%', maxWidth: 420, backgroundColor: '#fff', borderRadius: 22, padding: 20, shadowColor: DARK, shadowOpacity: 0.18, shadowRadius: 22, shadowOffset: { width: 0, height: 8 }, elevation: 8 },
+  modalCard:     { width: '100%', maxWidth: 420, backgroundColor: '#fff', borderRadius: 0, padding: 20, shadowColor: DARK, shadowOpacity: 0.18, shadowRadius: 22, shadowOffset: { width: 0, height: 8 }, elevation: 8 },
   modalTitle:    { fontSize: 17, fontWeight: '800', color: DARK, letterSpacing: -0.4 },
   modalSub:      { fontSize: 11, color: DIM, marginTop: 4, marginBottom: 18 },
   formLbl:       { fontSize: 9, color: FAINT, letterSpacing: 2, textTransform: 'uppercase', fontWeight: '600', marginBottom: 8 },
@@ -517,8 +517,8 @@ const s = StyleSheet.create({
   formChipTxt:   { fontSize: 11, color: DIM, fontWeight: '500' },
   formChipTxtOn: { color: '#F0EDE8', fontWeight: '600' },
   modalActions:  { flexDirection: 'row', gap: 10, marginTop: 20 },
-  modalCancel:   { flex: 1, paddingVertical: 13, borderRadius: 14, borderWidth: 1, borderColor: BORDER, backgroundColor: '#fff', alignItems: 'center' },
+  modalCancel:   { flex: 1, paddingVertical: 13, borderRadius: 0, borderWidth: 1, borderColor: BORDER, backgroundColor: '#fff', alignItems: 'center' },
   modalCancelTxt:{ fontSize: 13, fontWeight: '600', color: DIM },
-  modalSave:     { flex: 1, paddingVertical: 13, borderRadius: 14, backgroundColor: DARK, alignItems: 'center' },
+  modalSave:     { flex: 1, paddingVertical: 13, borderRadius: 0, backgroundColor: DARK, alignItems: 'center' },
   modalSaveTxt:  { fontSize: 13, fontWeight: '700', color: '#F0EDE8' },
 });

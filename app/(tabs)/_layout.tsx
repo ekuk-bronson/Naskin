@@ -5,7 +5,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { getSetting } from '../../services/storage';
 import { useLocale } from '../../services/i18n';
 
-const DARK  = '#1C1A18';
+const DARK  = '#141412';
 const FAINT = '#C5BDB4';
 
 function TabIcon({ symbol, focused }: { symbol: string; focused: boolean }) {

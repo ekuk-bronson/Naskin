@@ -16,10 +16,10 @@ import { getSetting, setSetting, deleteAllMolesForCurrentUser } from '../../serv
 import { useLocale, setLocale } from '../../services/i18n';
 import { setTextSize as setTextSizeStore, useTextScale } from '../../services/textScale';
 
-const BG     = '#F8F6F3';
-const DARK   = '#1C1A18';
-const STONE  = '#8B7355';
-const DIM    = '#9A9087';
+const BG     = '#F1EFEA';
+const DARK   = '#141412';
+const STONE  = '#2B3BEF';
+const DIM    = '#6E6C66';
 const FAINT  = '#C5BDB4';
 const BORDER = '#EDE9E3';
 
@@ -317,7 +317,7 @@ const styles = StyleSheet.create({
   scroll:           { flex: 1 },
   content:          { paddingHorizontal: 16, paddingBottom: 36 },
   sectionHeader:    { fontSize: 9, color: FAINT, letterSpacing: 2.0, textTransform: 'uppercase', fontWeight: '600', marginTop: 22, marginBottom: 8, marginLeft: 2 },
-  card:             { backgroundColor: '#fff', borderWidth: 1, borderColor: BORDER, borderRadius: 24, marginBottom: 4, shadowColor: DARK, shadowOpacity: 0.04, shadowRadius: 12, shadowOffset: { width: 0, height: 3 }, elevation: 2, overflow: 'hidden' },
+  card:             { backgroundColor: '#fff', borderWidth: 1, borderColor: BORDER, borderRadius: 0, marginBottom: 4, shadowColor: DARK, shadowOpacity: 0.04, shadowRadius: 12, shadowOffset: { width: 0, height: 3 }, elevation: 2, overflow: 'hidden' },
   row:              { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 18, paddingVertical: 14, borderTopWidth: 1, borderTopColor: BORDER },
   rowFirst:         { borderTopWidth: 0 },
   rowLeft:          { flex: 1 },

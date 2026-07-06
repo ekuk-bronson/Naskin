@@ -4,7 +4,7 @@ import { useWindowDimensions } from 'react-native';
 import type { MoleHistoryPoint } from '../services/storage';
 import { scoreColor } from '../constants/riskLevels';
 
-const STONE = '#8B7355';
+const STONE = '#2B3BEF';
 const FAINT = '#C5BDB4';
 
 interface Props {
@@ -60,7 +60,7 @@ export function LineChart({ history, outerPadding = 72 }: Props) {
           position: 'absolute',
           left: seg.cx - seg.len / 2, top: seg.cy - 1.5,
           width: seg.len, height: 3,
-          backgroundColor: STONE, borderRadius: 2,
+          backgroundColor: STONE, borderRadius: 0,
           transform: [{ rotate: `${seg.angle}deg` }],
         }} />
       ))}

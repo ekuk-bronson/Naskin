@@ -3,8 +3,8 @@ import { View, Text, StyleSheet } from 'react-native';
 import { ABCDE_LABELS, scoreColor } from '../constants/riskLevels';
 import type { ABCDEScore } from '../services/storage';
 
-const DARK  = '#1C1A18';
-const DIM   = '#9A9087';
+const DARK  = '#141412';
+const DIM   = '#6E6C66';
 const FAINT = '#C5BDB4';
 
 interface ABCDEData {
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderWidth: 1,
     borderColor: '#EDE9E3',
-    borderRadius: 18,
+    borderRadius: 0,
     padding: 14,
     paddingHorizontal: 16,
     marginBottom: 8,

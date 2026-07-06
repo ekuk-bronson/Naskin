@@ -207,10 +207,10 @@ const styles = StyleSheet.create({
   overlayLeft:    { position: 'absolute', top: '20%', bottom: '20%', left: 0, width: '21%', backgroundColor: 'rgba(0,0,0,0.5)' },
   overlayRight:   { position: 'absolute', top: '20%', bottom: '20%', right: 0, width: '21%', backgroundColor: 'rgba(0,0,0,0.5)' },
   // Back button
-  backBtn:        { position: 'absolute', left: 18, width: 36, height: 36, borderRadius: 12, borderWidth: 1, borderColor: 'rgba(255,255,255,0.25)', backgroundColor: 'rgba(0,0,0,0.4)', alignItems: 'center', justifyContent: 'center', zIndex: 10 },
+  backBtn:        { position: 'absolute', left: 18, width: 36, height: 36, borderRadius: 0, borderWidth: 1, borderColor: 'rgba(255,255,255,0.25)', backgroundColor: 'rgba(0,0,0,0.4)', alignItems: 'center', justifyContent: 'center', zIndex: 10 },
   backBtnText:    { color: '#fff', fontSize: 16 },
   // Distance badge
-  distanceBadge:  { position: 'absolute', alignSelf: 'center', flexDirection: 'row', alignItems: 'center', gap: 7, borderWidth: 1, borderRadius: 22, borderColor: 'rgba(255,255,255,0.2)', backgroundColor: 'rgba(0,0,0,0.45)', paddingHorizontal: 14, paddingVertical: 8, zIndex: 10 },
+  distanceBadge:  { position: 'absolute', alignSelf: 'center', flexDirection: 'row', alignItems: 'center', gap: 7, borderWidth: 1, borderRadius: 0, borderColor: 'rgba(255,255,255,0.2)', backgroundColor: 'rgba(0,0,0,0.45)', paddingHorizontal: 14, paddingVertical: 8, zIndex: 10 },
   distanceDot:    { width: 8, height: 8, borderRadius: 99 },
   distanceLabel:  { fontSize: 13, fontWeight: '700', letterSpacing: 0.2 },
   // Aim ring
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
   crossV:         { position: 'absolute', width: 1.5, height: 16, backgroundColor: 'rgba(255,255,255,0.5)', borderRadius: 99 },
   // Side panel
   sidePanel:      { position: 'absolute', right: 14, alignItems: 'center', justifyContent: 'space-between', zIndex: 10, gap: 6 },
-  zoomBtn:        { width: 40, height: 40, borderRadius: 14, borderWidth: 1, borderColor: 'rgba(255,255,255,0.25)', backgroundColor: 'rgba(0,0,0,0.45)', alignItems: 'center', justifyContent: 'center' },
+  zoomBtn:        { width: 40, height: 40, borderRadius: 0, borderWidth: 1, borderColor: 'rgba(255,255,255,0.25)', backgroundColor: 'rgba(0,0,0,0.45)', alignItems: 'center', justifyContent: 'center' },
   zoomBtnText:    { color: '#fff', fontSize: 22, fontWeight: '300', lineHeight: 26 },
   // Distance meter
   meterWrap:      { flex: 1, alignItems: 'center', gap: 4 },
@@ -228,18 +228,18 @@ const styles = StyleSheet.create({
   meterLabelBot:  { fontSize: 8, color: 'rgba(255,255,255,0.4)' },
   meterCm:        { fontSize: 10, fontWeight: '800', color: '#fff', letterSpacing: 0.2, marginTop: 2 },
   meterTrack:     { flex: 1, width: 10, borderRadius: 99, overflow: 'hidden', position: 'relative', gap: 1 },
-  meterZone:      { width: '100%', borderRadius: 2 },
+  meterZone:      { width: '100%', borderRadius: 0 },
   meterIndicator: { position: 'absolute', left: -4, width: 18, height: 18, borderRadius: 99, marginTop: -9, borderWidth: 2.5, borderColor: '#fff', elevation: 4 },
   // Bottom controls
   controls:       { position: 'absolute', left: 0, right: 0, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', paddingHorizontal: 32, zIndex: 10 },
-  sideBtn:        { width: 46, height: 46, borderRadius: 15, borderWidth: 1, borderColor: 'rgba(255,255,255,0.2)', backgroundColor: 'rgba(0,0,0,0.4)', alignItems: 'center', justifyContent: 'center' },
+  sideBtn:        { width: 46, height: 46, borderRadius: 0, borderWidth: 1, borderColor: 'rgba(255,255,255,0.2)', backgroundColor: 'rgba(0,0,0,0.4)', alignItems: 'center', justifyContent: 'center' },
   sideBtnActive:  { borderColor: 'rgba(255,255,255,0.7)' },
   sideBtnIcon:    { fontSize: 20 },
   sideBtnLabel:   { fontSize: 8, color: 'rgba(255,255,255,0.55)', fontWeight: '600', letterSpacing: 0.3, marginTop: 2 },
   shutterOuter:   { width: 72, height: 72, borderRadius: 36, backgroundColor: 'rgba(255,255,255,0.15)', borderWidth: 3, alignItems: 'center', justifyContent: 'center' },
-  shutterInner:   { width: 54, height: 54, borderRadius: 27, opacity: 0.9 },
+  shutterInner:   { width: 54, height: 54, borderRadius: 0, opacity: 0.9 },
   // Permissions
   permText:       { color: 'rgba(255,255,255,0.7)', fontSize: 14, marginBottom: 16 },
-  permBtn:        { borderWidth: 1, borderColor: 'rgba(255,255,255,0.3)', borderRadius: 12, paddingHorizontal: 20, paddingVertical: 10 },
+  permBtn:        { borderWidth: 1, borderColor: 'rgba(255,255,255,0.3)', borderRadius: 0, paddingHorizontal: 20, paddingVertical: 10 },
   permBtnText:    { color: '#fff', fontWeight: '700', fontSize: 13 },
 });

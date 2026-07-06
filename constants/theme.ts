@@ -1,53 +1,93 @@
 /**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
+ * FreeSkin design system — unified with the web (Naskin-web).
+ * Swiss grid / brutalism: paper + ink + cobalt accent, semantic risk colors,
+ * hard offset shadows, square corners, Unbounded / Inter Tight / JetBrains Mono.
+ *
+ * Mirrors web app/globals.css :root tokens and app/layout.tsx fonts.
  */
 
 import { Platform } from 'react-native';
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+// ── Brand palette (1:1 with web --paper/--ink/--grey/--mist/--accent) ──
+export const Palette = {
+  paper:  '#F1EFEA',
+  ink:    '#141412',
+  grey:   '#6E6C66',
+  mist:   '#DDDAD2',
+  accent: '#2B3BEF',
+  white:  '#FFFFFF',
+
+  riskHigh:     '#E8003D',
+  riskModerate: '#E06000',
+  riskLow:      '#00904A',
+} as const;
+
+// ── Fonts (loaded via @expo-google-fonts in app/_layout.tsx) ──
+// Family names match the keys passed to useFonts().
+export const Font = {
+  display:      'Unbounded_700Bold',    // brutal headlines
+  displayMed:   'Unbounded_500Medium',
+  body:         'InterTight_400Regular',
+  bodyMed:      'InterTight_500Medium',
+  bodySemiBold: 'InterTight_600SemiBold',
+  mono:         'JetBrainsMono_500Medium', // labels / numbers
+} as const;
+
+// Brutalism = square corners everywhere.
+export const Radius = { none: 0, sm: 0, md: 0, lg: 0 } as const;
+
+export const Spacing = { xs: 4, sm: 8, md: 16, lg: 24, xl: 32 } as const;
+
+/**
+ * Hard offset shadow token (native shadow API). Crisp on iOS/web; on Android
+ * it degrades to a soft elevation. For pixel-perfect offset boxes on all
+ * platforms use the <HardCard> component (draws a solid offset layer).
+ */
+export function hardShadow(offset = 5) {
+  return {
+    shadowColor:   Palette.ink,
+    shadowOffset:  { width: offset, height: offset },
+    shadowOpacity: 1,
+    shadowRadius:  0,
+    elevation:     offset,
+  } as const;
+}
+
+export const hardBorder = { borderWidth: 2, borderColor: Palette.ink } as const;
+
+// ── Backward-compatible exports (existing consumers use Colors / Fonts) ──
+// Web design is light-only (paper); dark mirrors it so the app stays on-brand.
+const brand = {
+  text:             Palette.ink,
+  background:       Palette.paper,
+  tint:             Palette.accent,
+  icon:             Palette.grey,
+  tabIconDefault:   Palette.grey,
+  tabIconSelected:  Palette.accent,
+};
 
 export const Colors = {
-  light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
-  },
-  dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
-  },
+  light: { ...brand },
+  dark:  { ...brand },
 };
 
 export const Fonts = Platform.select({
   ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
-    sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
-    serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
-    rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
-    mono: 'ui-monospace',
+    sans:    Font.body,
+    serif:   Font.body,
+    rounded: Font.body,
+    mono:    Font.mono,
   },
   default: {
-    sans: 'normal',
-    serif: 'serif',
-    rounded: 'normal',
-    mono: 'monospace',
+    sans:    Font.body,
+    serif:   Font.body,
+    rounded: Font.body,
+    mono:    Font.mono,
   },
   web: {
-    sans: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-    serif: "Georgia, 'Times New Roman', serif",
-    rounded: "'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif",
-    mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+    sans:    Font.body,
+    serif:   Font.body,
+    rounded: Font.body,
+    mono:    Font.mono,
   },
 });

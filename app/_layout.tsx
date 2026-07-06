@@ -13,13 +13,40 @@ import {
   scheduleReminder,
 } from '../services/notifications';
 import { AuthProvider } from '../contexts/AuthContext';
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+import { Unbounded_500Medium, Unbounded_700Bold } from '@expo-google-fonts/unbounded';
+import {
+  InterTight_400Regular,
+  InterTight_500Medium,
+  InterTight_600SemiBold,
+} from '@expo-google-fonts/inter-tight';
+import { JetBrainsMono_500Medium } from '@expo-google-fonts/jetbrains-mono';
+import { Palette } from '../constants/theme';
 
 /** true in dev-build / standalone — notifications work; false in Expo Go */
 const NOTIF_SUPPORTED: boolean = Constants.appOwnership !== 'expo';
 
+// Keep the splash visible until brand fonts are ready.
+SplashScreen.preventAutoHideAsync().catch(() => {});
+
 export default function RootLayout() {
   const router = useRouter();
   const textScale = useTextScale();
+
+  // Brand fonts, unified with the web (Unbounded / Inter Tight / JetBrains Mono).
+  const [fontsLoaded] = useFonts({
+    Unbounded_500Medium,
+    Unbounded_700Bold,
+    InterTight_400Regular,
+    InterTight_500Medium,
+    InterTight_600SemiBold,
+    JetBrainsMono_500Medium,
+  });
+
+  useEffect(() => {
+    if (fontsLoaded) SplashScreen.hideAsync().catch(() => {});
+  }, [fontsLoaded]);
 
   // Globally enable system font scaling and apply our app-level multiplier
   // for any Text without an explicit fontSize. Keys with explicit sizes
@@ -76,6 +103,9 @@ export default function RootLayout() {
     return () => cleanup?.();
   }, []);
 
+  // Hold render (splash stays up) until brand fonts are ready.
+  if (!fontsLoaded) return null;
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
@@ -84,7 +114,7 @@ export default function RootLayout() {
           <Stack
             screenOptions={{
               headerShown: false,
-              contentStyle: { backgroundColor: '#F8F6F3' },
+              contentStyle: { backgroundColor: Palette.paper },
               animation: 'slide_from_right',
             }}
           >

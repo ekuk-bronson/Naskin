@@ -15,10 +15,10 @@ import { useLocale } from '../services/i18n';
 import { checkPhotoQuality, type QualityResult } from '../services/preprocessing';
 import { modelRunner } from '../model/ModelRunner';
 
-const BG     = '#F8F6F3';
-const DARK   = '#1C1A18';
-const STONE  = '#8B7355';
-const DIM    = '#9A9087';
+const BG     = '#F1EFEA';
+const DARK   = '#141412';
+const STONE  = '#2B3BEF';
+const DIM    = '#6E6C66';
 const FAINT  = '#C5BDB4';
 const BORDER = '#EDE9E3';
 
@@ -363,7 +363,7 @@ const styles = StyleSheet.create({
   content:        { paddingHorizontal: 24, paddingTop: 28, paddingBottom: 120 },
   heading:        { fontSize: 28, fontWeight: '800', color: DARK, letterSpacing: -0.8, marginBottom: 24 },
   subLabel:       { fontSize: 10, fontWeight: '700', color: FAINT, letterSpacing: 2.2, textTransform: 'uppercase', marginBottom: 10 },
-  inputCard:      { backgroundColor: '#fff', borderWidth: 1, borderColor: BORDER, borderRadius: 16, paddingHorizontal: 16, paddingVertical: 4, shadowColor: DARK, shadowOpacity: 0.03, shadowRadius: 8, shadowOffset: { width: 0, height: 2 }, elevation: 1 },
+  inputCard:      { backgroundColor: '#fff', borderWidth: 1, borderColor: BORDER, borderRadius: 0, paddingHorizontal: 16, paddingVertical: 4, shadowColor: DARK, shadowOpacity: 0.03, shadowRadius: 8, shadowOffset: { width: 0, height: 2 }, elevation: 1 },
   input:          { fontSize: 15, color: DARK, paddingVertical: 14, fontWeight: '500' },
   chipGrid:       { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   chip:           { paddingHorizontal: 14, paddingVertical: 8, borderRadius: 99, borderWidth: 1, borderColor: BORDER, backgroundColor: '#fff' },
@@ -371,27 +371,27 @@ const styles = StyleSheet.create({
   chipText:       { fontSize: 12, color: DARK, fontWeight: '500' },
   chipTextActive: { color: '#F0EDE8' },
   bottomBar:      { position: 'absolute', bottom: 0, left: 0, right: 0, paddingHorizontal: 24, paddingBottom: 32, paddingTop: 16, backgroundColor: BG, borderTopWidth: 1, borderTopColor: BORDER },
-  ctaBtn:         { backgroundColor: DARK, borderRadius: 18, paddingVertical: 16, alignItems: 'center' },
+  ctaBtn:         { backgroundColor: DARK, borderRadius: 0, paddingVertical: 16, alignItems: 'center' },
   ctaBtnDisabled: { opacity: 0.35 },
   ctaBtnText:     { fontSize: 14, fontWeight: '700', color: '#F0EDE8', letterSpacing: 0.3 },
   previewWrapper: { alignItems: 'center', marginBottom: 20 },
-  preview:        { borderRadius: 24, overflow: 'hidden' },
+  preview:        { borderRadius: 0, overflow: 'hidden' },
   retakeBtn:      { marginTop: 12 },
   retakeBtnText:  { fontSize: 12, color: STONE, fontWeight: '600', letterSpacing: 0.2 },
-  emptyPreview:   { alignItems: 'center', justifyContent: 'center', height: 200, borderRadius: 24, borderWidth: 1.5, borderColor: BORDER, borderStyle: 'dashed', marginBottom: 20 },
+  emptyPreview:   { alignItems: 'center', justifyContent: 'center', height: 200, borderRadius: 0, borderWidth: 1.5, borderColor: BORDER, borderStyle: 'dashed', marginBottom: 20 },
   emptyIcon:      { fontSize: 40, color: FAINT, marginBottom: 12 },
   emptyText:      { fontSize: 12, color: FAINT, textAlign: 'center', lineHeight: 18 },
-  photoBtn:       { borderRadius: 16, paddingVertical: 16, alignItems: 'center', marginBottom: 10 },
+  photoBtn:       { borderRadius: 0, paddingVertical: 16, alignItems: 'center', marginBottom: 10 },
   photoBtnPrimary:       { backgroundColor: DARK },
   photoBtnPrimaryText:   { fontSize: 14, fontWeight: '700', color: '#F0EDE8', letterSpacing: 0.3 },
   photoBtnSecondary:     { backgroundColor: '#fff', borderWidth: 1, borderColor: BORDER },
   photoBtnSecondaryText: { fontSize: 14, fontWeight: '700', color: DARK, letterSpacing: 0.3 },
 
   // Quality-check banner
-  qBanner:          { flexDirection: 'row', alignItems: 'flex-start', gap: 10, paddingHorizontal: 14, paddingVertical: 12, borderRadius: 14, borderWidth: 1, borderColor: BORDER, backgroundColor: '#fff', marginBottom: 14 },
+  qBanner:          { flexDirection: 'row', alignItems: 'flex-start', gap: 10, paddingHorizontal: 14, paddingVertical: 12, borderRadius: 0, borderWidth: 1, borderColor: BORDER, backgroundColor: '#fff', marginBottom: 14 },
   qBannerWarn:      { borderColor: '#F0D8A8', backgroundColor: '#FFF8F0' },
   qBannerOk:        { borderColor: '#C8E8D4', backgroundColor: '#F0FFF6' },
-  qDot:             { width: 8, height: 8, borderRadius: 4, marginTop: 5 },
+  qDot:             { width: 8, height: 8, borderRadius: 0, marginTop: 5 },
   qLoading:         { fontSize: 12, color: DIM, fontWeight: '500', flex: 1, marginTop: 1 },
   qOk:              { fontSize: 12, color: '#00904A', fontWeight: '600', flex: 1, marginTop: 1 },
   qTitle:           { fontSize: 12, fontWeight: '700', color: '#E06000', letterSpacing: 0.1, marginBottom: 3 },
@@ -403,7 +403,7 @@ const styles = StyleSheet.create({
 
   // Demo-mode hint shown during step 3 when the real model isn't loaded
   demoBadge:        { flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 28, paddingHorizontal: 14, paddingVertical: 8, borderRadius: 99, borderWidth: 1, borderColor: BORDER, backgroundColor: '#FBFAF7' },
-  demoDot:          { width: 7, height: 7, borderRadius: 4, backgroundColor: STONE },
+  demoDot:          { width: 7, height: 7, borderRadius: 0, backgroundColor: STONE },
   demoText:         { fontSize: 11, fontWeight: '600', color: STONE, letterSpacing: 0.3 },
   analyzeCenter:  { flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 24 },
   orb:            { width: 120, height: 120, borderRadius: 60, backgroundColor: BORDER, marginBottom: 28, shadowColor: STONE, shadowOpacity: 0.15, shadowRadius: 20, shadowOffset: { width: 0, height: 4 }, elevation: 4 },

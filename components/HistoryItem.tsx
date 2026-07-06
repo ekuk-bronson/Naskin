@@ -4,8 +4,8 @@ import { RISK_LEVELS, scoreColor } from '../constants/riskLevels';
 import type { Mole } from '../services/storage';
 import { useLocale } from '../services/i18n';
 
-const DARK  = '#1C1A18';
-const DIM   = '#9A9087';
+const DARK  = '#141412';
+const DIM   = '#6E6C66';
 const FAINT = '#C5BDB4';
 const BAR_MAX = 36;
 
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderWidth: 1,
     borderColor: '#EDE9E3',
-    borderRadius: 22,
+    borderRadius: 0,
     padding: 16,
     paddingHorizontal: 16,
     marginBottom: 10,
@@ -94,21 +94,21 @@ const styles = StyleSheet.create({
   avatarPhoto: {
     width: 48,
     height: 48,
-    borderRadius: 14,
+    borderRadius: 0,
     flexShrink: 0,
     backgroundColor: '#EDE9E3',
   },
   avatar: {
     width: 48,
     height: 48,
-    borderRadius: 14,
+    borderRadius: 0,
     borderWidth: 1.5,
     alignItems: 'center',
     justifyContent: 'center',
     flexShrink: 0,
     overflow: 'hidden',
   },
-  avatarDot: { width: 22, height: 20, borderRadius: 99, backgroundColor: '#7A5035' },
+  avatarDot: { width: 22, height: 20, borderRadius: 99, backgroundColor: '#2B3BEF' },
   meta: { flex: 1, minWidth: 0 },
   name: { fontSize: 13, fontWeight: '700', color: DARK, letterSpacing: -0.2, marginBottom: 3 },
   loc:  { fontSize: 10, color: FAINT },
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 9,
     paddingVertical: 5,
   },
-  riskDot:      { width: 7, height: 7, borderRadius: 4 },
+  riskDot:      { width: 7, height: 7, borderRadius: 0 },
   riskPillText: { fontSize: 11, fontWeight: '700', letterSpacing: 0.2 },
   chart: {
     flexDirection: 'row',

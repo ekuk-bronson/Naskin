@@ -12,10 +12,10 @@ import { cancelHighRiskReminder } from '../../services/notifications';
 import { useLocale } from '../../services/i18n';
 import { useTextScale } from '../../services/textScale';
 
-const BG    = '#F8F6F3';
-const DARK  = '#1C1A18';
-const STONE = '#8B7355';
-const DIM   = '#9A9087';
+const BG    = '#F1EFEA';
+const DARK  = '#141412';
+const STONE = '#2B3BEF';
+const DIM   = '#6E6C66';
 const FAINT = '#C5BDB4';
 
 type SortKey = 'date' | 'score' | 'name';
@@ -198,7 +198,7 @@ export default function HomeScreen() {
                 <DeleteAction onPress={() => confirmDelete(m.id, m.name)} dragX={dragX} label={t('common.delete')} />
               )}
               rightThreshold={60} overshootRight={false}
-              containerStyle={{ marginBottom: 8, borderRadius: 20 }}
+              containerStyle={{ marginBottom: 8, borderRadius: 0 }}
             >
               <TouchableOpacity
                 onPress={() => router.push({ pathname: '/result', params: { id: m.id } })}
@@ -246,12 +246,12 @@ const s = StyleSheet.create({
   header:          { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 24, paddingTop: 14, paddingBottom: 8 },
   headerSup:       { fontSize: 9, color: STONE, letterSpacing: 2.2, textTransform: 'uppercase', fontWeight: '600', marginBottom: 4 },
   headerTitle:     { fontSize: 26, fontWeight: '800', color: DARK, letterSpacing: -0.8 },
-  reportBtn:       { width: 40, height: 40, borderRadius: 20, backgroundColor: '#fff', borderWidth: 1, borderColor: '#EDE9E3', alignItems: 'center', justifyContent: 'center', shadowColor: DARK, shadowOpacity: 0.06, shadowRadius: 10, shadowOffset: { width: 0, height: 2 }, elevation: 2 },
+  reportBtn:       { width: 40, height: 40, borderRadius: 0, backgroundColor: '#fff', borderWidth: 1, borderColor: '#EDE9E3', alignItems: 'center', justifyContent: 'center', shadowColor: DARK, shadowOpacity: 0.06, shadowRadius: 10, shadowOffset: { width: 0, height: 2 }, elevation: 2 },
   reportBtnIcon:   { fontSize: 18, color: STONE },
   scroll:          { flex: 1 },
   scrollContent:   { paddingHorizontal: 20, paddingTop: 10, paddingBottom: 10 },
   // Hero
-  heroCard:        { backgroundColor: DARK, borderRadius: 28, padding: 22, marginBottom: 12, overflow: 'hidden', position: 'relative' },
+  heroCard:        { backgroundColor: DARK, borderRadius: 0, padding: 22, marginBottom: 12, overflow: 'hidden', position: 'relative' },
   heroGlowA:       { position: 'absolute', top: -40, right: -30, width: 170, height: 170, borderRadius: 85, backgroundColor: 'rgba(160,120,58,0.2)' },
   heroGlowB:       { position: 'absolute', bottom: -30, left: -30, width: 110, height: 110, borderRadius: 55, backgroundColor: 'rgba(45,80,200,0.1)' },
   heroTop:         { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 },
@@ -262,13 +262,13 @@ const s = StyleSheet.create({
   heroRingPct:     { fontSize: 17, fontWeight: '800', color: STONE, letterSpacing: -0.5, lineHeight: 20 },
   heroRingLabel:   { fontSize: 7, color: '#5A5248', letterSpacing: 0.8, textTransform: 'uppercase', marginTop: 2 },
   heroBadges:      { flexDirection: 'row', gap: 8 },
-  heroBadge:       { flex: 1, backgroundColor: 'rgba(248,246,243,0.04)', borderWidth: 1, borderRadius: 16, paddingVertical: 12, alignItems: 'center', gap: 5 },
-  heroBadgeDot:    { width: 5, height: 5, borderRadius: 3 },
+  heroBadge:       { flex: 1, backgroundColor: 'rgba(248,246,243,0.04)', borderWidth: 1, borderRadius: 0, paddingVertical: 12, alignItems: 'center', gap: 5 },
+  heroBadgeDot:    { width: 5, height: 5, borderRadius: 0 },
   heroBadgeNum:    { fontSize: 21, fontWeight: '800', letterSpacing: -0.5, lineHeight: 22, textAlign: 'center' },
   heroBadgeLabel:  { fontSize: 7, color: '#504840', letterSpacing: 1.2, textTransform: 'uppercase' },
   // Alert
-  alertBanner:     { backgroundColor: '#fff', borderWidth: 1, borderColor: '#F0D8DC', borderRadius: 20, paddingHorizontal: 16, paddingVertical: 14, flexDirection: 'row', alignItems: 'center', gap: 12, marginBottom: 14, shadowColor: '#E8003D', shadowOpacity: 0.07, shadowRadius: 16, shadowOffset: { width: 0, height: 4 }, elevation: 3 },
-  alertPulse:      { width: 8, height: 8, borderRadius: 4, backgroundColor: '#E8003D', flexShrink: 0 },
+  alertBanner:     { backgroundColor: '#fff', borderWidth: 1, borderColor: '#F0D8DC', borderRadius: 0, paddingHorizontal: 16, paddingVertical: 14, flexDirection: 'row', alignItems: 'center', gap: 12, marginBottom: 14, shadowColor: '#E8003D', shadowOpacity: 0.07, shadowRadius: 16, shadowOffset: { width: 0, height: 4 }, elevation: 3 },
+  alertPulse:      { width: 8, height: 8, borderRadius: 0, backgroundColor: '#E8003D', flexShrink: 0 },
   alertTitle:      { fontSize: 12, color: '#E8003D', fontWeight: '700', marginBottom: 2 },
   alertSub:        { fontSize: 11, color: DIM },
   alertChevron:    { fontSize: 20, color: FAINT },
@@ -284,27 +284,27 @@ const s = StyleSheet.create({
   emptyTitle:      { fontSize: 15, fontWeight: '700', color: DIM, letterSpacing: -0.2 },
   emptyHint:       { fontSize: 12, color: FAINT, textAlign: 'center', lineHeight: 18, paddingHorizontal: 32 },
   // Mole card
-  moleCard:        { backgroundColor: '#fff', borderRadius: 20, paddingHorizontal: 16, paddingVertical: 14, flexDirection: 'row', alignItems: 'center', gap: 13, marginBottom: 8, borderWidth: 1, borderColor: '#EDE9E3', shadowColor: DARK, shadowOpacity: 0.04, shadowRadius: 12, shadowOffset: { width: 0, height: 3 }, elevation: 2 },
-  moleThumb:       { width: 50, height: 50, borderRadius: 15, flexShrink: 0, backgroundColor: '#EDE9E3' },
-  molePlaceholder: { width: 50, height: 50, borderRadius: 15, flexShrink: 0, borderWidth: 1.5, backgroundColor: '#F8F0E8', alignItems: 'center', justifyContent: 'center' },
-  moleDot:         { width: 24, height: 22, borderRadius: 99, backgroundColor: '#7A5035' },
+  moleCard:        { backgroundColor: '#fff', borderRadius: 0, paddingHorizontal: 16, paddingVertical: 14, flexDirection: 'row', alignItems: 'center', gap: 13, marginBottom: 8, borderWidth: 1, borderColor: '#EDE9E3', shadowColor: DARK, shadowOpacity: 0.04, shadowRadius: 12, shadowOffset: { width: 0, height: 3 }, elevation: 2 },
+  moleThumb:       { width: 50, height: 50, borderRadius: 0, flexShrink: 0, backgroundColor: '#EDE9E3' },
+  molePlaceholder: { width: 50, height: 50, borderRadius: 0, flexShrink: 0, borderWidth: 1.5, backgroundColor: '#F8F0E8', alignItems: 'center', justifyContent: 'center' },
+  moleDot:         { width: 24, height: 22, borderRadius: 99, backgroundColor: '#2B3BEF' },
   moleMeta:        { flex: 1, minWidth: 0 },
   moleTopRow:      { flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 4 },
   moleName:        { fontSize: 13, fontWeight: '700', color: DARK, letterSpacing: -0.3, flexShrink: 1 },
-  changedPill:     { width: 18, height: 18, borderRadius: 9, backgroundColor: '#FFF0F3', borderWidth: 1, borderColor: '#FFD0D8', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
+  changedPill:     { width: 18, height: 18, borderRadius: 0, backgroundColor: '#FFF0F3', borderWidth: 1, borderColor: '#FFD0D8', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
   changedPillText: { fontSize: 9 },
   moleSub:         { fontSize: 11, color: DIM, letterSpacing: 0.1 },
   moleScore:       { alignItems: 'flex-end', justifyContent: 'center', gap: 5 },
   moleRisk:        { flexDirection: 'row', alignItems: 'center', gap: 6, borderWidth: 1, borderRadius: 99, paddingHorizontal: 10, paddingVertical: 6 },
-  moleRiskDot:     { width: 8, height: 8, borderRadius: 4 },
+  moleRiskDot:     { width: 8, height: 8, borderRadius: 0 },
   moleRiskText:    { fontSize: 11, fontWeight: '700', letterSpacing: 0.2 },
   // Swipe delete
   deleteWrap:      { width: 80, justifyContent: 'center', alignItems: 'center' },
-  deleteBtn:       { width: 66, height: '90%', borderRadius: 18, backgroundColor: '#E8003D', alignItems: 'center', justifyContent: 'center', gap: 3 },
+  deleteBtn:       { width: 66, height: '90%', borderRadius: 0, backgroundColor: '#E8003D', alignItems: 'center', justifyContent: 'center', gap: 3 },
   deleteIcon:      { fontSize: 20 },
   deleteLabel:     { fontSize: 9, fontWeight: '700', color: '#fff', letterSpacing: 0.4 },
   // Footer
   footer:          { flexDirection: 'row', gap: 10, alignItems: 'center', paddingHorizontal: 20, paddingVertical: 12, borderTopWidth: 1, borderTopColor: '#EDE9E3', backgroundColor: '#FAFAF8' },
-  addBtn:          { flex: 1, paddingVertical: 15, borderRadius: 18, backgroundColor: DARK, alignItems: 'center', justifyContent: 'center', shadowColor: DARK, shadowOpacity: 0.18, shadowRadius: 12, shadowOffset: { width: 0, height: 4 }, elevation: 4 },
+  addBtn:          { flex: 1, paddingVertical: 15, borderRadius: 0, backgroundColor: DARK, alignItems: 'center', justifyContent: 'center', shadowColor: DARK, shadowOpacity: 0.18, shadowRadius: 12, shadowOffset: { width: 0, height: 4 }, elevation: 4 },
   addBtnText:      { fontSize: 14, fontWeight: '700', color: '#F0EDE8', letterSpacing: 0.3 },
 });

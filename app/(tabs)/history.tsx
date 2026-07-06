@@ -7,9 +7,9 @@ import { getAllMoles, type Mole } from '../../services/storage';
 import { useLocale } from '../../services/i18n';
 import { useTextScale } from '../../services/textScale';
 
-const DARK  = '#1C1A18';
-const STONE = '#8B7355';
-const DIM   = '#9A9087';
+const DARK  = '#141412';
+const STONE = '#2B3BEF';
+const DIM   = '#6E6C66';
 const FAINT = '#C5BDB4';
 
 export default function HistoryScreen() {
@@ -76,7 +76,7 @@ export default function HistoryScreen() {
 }
 
 const s = StyleSheet.create({
-  root:        { flex: 1, backgroundColor: '#F8F6F3' },
+  root:        { flex: 1, backgroundColor: '#F1EFEA' },
   header:      { paddingHorizontal: 24, paddingTop: 14, paddingBottom: 14, borderBottomWidth: 1, borderBottomColor: '#EDE9E3' },
   sup:         { fontSize: 9, color: STONE, letterSpacing: 2.2, textTransform: 'uppercase', fontWeight: '600', marginBottom: 4 },
   title:       { fontSize: 26, fontWeight: '800', color: DARK, letterSpacing: -0.8, marginBottom: 2 },
@@ -93,6 +93,6 @@ const s = StyleSheet.create({
   emptyIcon:   { fontSize: 36, color: FAINT, marginBottom: 4 },
   emptyTitle:  { fontSize: 15, fontWeight: '700', color: DIM },
   emptyHint:   { fontSize: 12, color: FAINT, textAlign: 'center', lineHeight: 18 },
-  emptyCta:    { marginTop: 18, paddingVertical: 14, paddingHorizontal: 24, borderRadius: 18, backgroundColor: DARK, shadowColor: DARK, shadowOpacity: 0.15, shadowRadius: 12, shadowOffset: { width: 0, height: 4 }, elevation: 4 },
+  emptyCta:    { marginTop: 18, paddingVertical: 14, paddingHorizontal: 24, borderRadius: 0, backgroundColor: DARK, shadowColor: DARK, shadowOpacity: 0.15, shadowRadius: 12, shadowOffset: { width: 0, height: 4 }, elevation: 4 },
   emptyCtaTxt: { fontSize: 13, fontWeight: '700', color: '#F0EDE8', letterSpacing: 0.3 },
 });
