@@ -1,0 +1,12 @@
+{
+  "model": "DermaMap lesion segmentation",
+  "arch": "U-Net MobileNetV2",
+  "img_size": 256,
+  "input_range": [
+    0,
+    255
+  ],
+  "input_dtype": "float32",
+  "channel_order": "RGB",
+  "output": "[1,256,256,1] sigmoid mask"
+}

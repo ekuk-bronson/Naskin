@@ -24,6 +24,7 @@ import Constants from 'expo-constants';
 import { Asset } from 'expo-asset';
 import { getRiskLevel, type RiskLevel } from '../constants/riskLevels';
 import { preprocessImage } from '../services/imagePreprocessor';
+import { segmentAndMeasure } from '../services/segmentation';
 
 /**
  * react-native-fast-tflite ships TurboModule code (via react-native-nitro-modules)
@@ -201,10 +202,23 @@ function loadModelAsset(): number | null {
   return _modelAsset;
 }
 
+let _segAsset: number | null | undefined;
+function loadSegAsset(): number | null {
+  if (_segAsset !== undefined) return _segAsset;
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    _segAsset = require('../assets/model/lesion_seg.tflite') as number;
+  } catch {
+    _segAsset = null;
+  }
+  return _segAsset;
+}
+
 // ─── Public API ──────────────────────────────────────────────────────────────
 
 class MoleClassifier {
   private model: TfliteModel | null = null;
+  private segModel: TfliteModel | null = null;
   private loaded = false;
 
   /**
@@ -262,6 +276,27 @@ class MoleClassifier {
       // Legacy fallback — pass the raw require() asset id.
       this.model = await tflite.loadTensorflowModel(assetId, []);
     }
+
+    // Optional segmentation model → enables real ABCD from the lesion mask.
+    // Best-effort: if the asset or model is missing, ABCD falls back to the
+    // classifier-derived proxy and classification still works.
+    try {
+      const segId = loadSegAsset();
+      if (segId != null) {
+        const segAsset = Asset.fromModule(segId);
+        if (!segAsset.localUri) await segAsset.downloadAsync();
+        this.segModel = await tflite.loadTensorflowModel(
+          { url: segAsset.localUri ?? segAsset.uri }, [],
+        );
+        // eslint-disable-next-line no-console
+        console.log('[ModelRunner] segmentation model loaded');
+      }
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.log('[ModelRunner] segmentation model unavailable (ABCD uses proxy):', String(e));
+      this.segModel = null;
+    }
+
     this.loaded = true;
   }
 
@@ -345,6 +380,33 @@ class MoleClassifier {
     }
 
     const { overall, ...abcde } = mapped;
+
+    // ── Real A/B/C/D from the lesion segmentation mask ──
+    // Overrides the classifier-derived proxy when the seg model is present.
+    // Evolution (E) stays temporal / proxy — it needs history, not one frame.
+    if (this.segModel) {
+      try {
+        const m = await segmentAndMeasure(this.segModel, imageUri);
+        if (m) {
+          // metrics ∈ [0,1]; modest gains so a genuinely irregular lesion
+          // reaches a meaningful score. Tune once validated on device.
+          abcde.asymmetry = toScore(clamp01(m.asymmetry * 2.5));
+          abcde.border    = toScore(clamp01(m.border * 1.8));
+          abcde.color     = toScore(m.color);
+          abcde.diameter  = toScore(m.diameter);
+          // eslint-disable-next-line no-console
+          console.log(
+            `[ModelRunner] real ABCD from mask: A=${abcde.asymmetry} B=${abcde.border} ` +
+            `C=${abcde.color} D=${abcde.diameter} (colors=${m.raw.colorCount}, ` +
+            `circularity=${m.raw.circularity.toFixed(2)}, coverage=${m.raw.coverage.toFixed(2)})`,
+          );
+        }
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.log('[ModelRunner] segmentation ABCD failed, using proxy:', String(e));
+      }
+    }
+
     const score  = parseFloat(overall.toFixed(1));
     const risk   = getRiskLevel(score);
     const sizeMm = Math.max(2, Math.round(score * 0.8 + 1));
