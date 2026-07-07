@@ -60,8 +60,12 @@ const MODEL_OUTPUT_TYPE: 'ham7' | 'abcde' | 'binary' = 'binary';
  * After temperature we also apply a hard prior shift to compensate for
  * the training/deployment class imbalance.
  */
-const MODEL_TEMPERATURE = 2.5;
-const MODEL_PRIOR_SHIFT = -1.0;   // negative logit shift → pulls P down for typical benign
+// v3 model (ISIC + PAD-UFES-20) separates phone photos cleanly (mal P≈0.90,
+// benign P≈0.31 on held-out PAD), so the old aggressive damping (T=2.5,
+// shift=-1.0, which turned a raw 0.90 into a shown 0.47) is no longer warranted.
+// Mild calibration only. Re-fit on real-world data if benign moles over-alarm.
+const MODEL_TEMPERATURE = 1.5;
+const MODEL_PRIOR_SHIFT = -0.5;   // negative logit shift → mild pull-down for typical benign
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 const HIGH_RISK_IDX = [0, 1, 4];  // akiec, bcc, mel — informational only
