@@ -20,6 +20,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Redirect } from 'expo-router';
 import * as Google from 'expo-auth-session/providers/google';
 import * as WebBrowser from 'expo-web-browser';
+import Constants from 'expo-constants';
 import { useAuth } from '../contexts/AuthContext';
 import { GOOGLE_CLIENT_IDS } from '../services/auth';
 import { useLocale } from '../services/i18n';
@@ -188,7 +189,7 @@ export default function LoginScreen() {
       </View>
 
       {/* ── Version ───────────────────────────────────── */}
-      <Text style={styles.version}>FreeSkin v0.1.0</Text>
+      <Text style={styles.version}>FreeSkin v{Constants.expoConfig?.version ?? '1.0.0'}</Text>
     </SafeAreaView>
   );
 }

@@ -75,6 +75,10 @@ export interface Mole {
   history: MoleHistoryPoint[];
   summary: string;
   rec: string;
+  /** ISO timestamp of the latest analysis — used for date sorting. */
+  lastAnalyzedAt?: string;
+  /** True when the stored result came from the demo generator, not the model. */
+  isMock?: boolean;
 }
 
 export const db = SQLite.openDatabaseSync('freeskin.db');
@@ -135,6 +139,10 @@ export function initDb(): void {
   // Both wrapped in try/catch — silently ignored when column already exists.
   try { db.execSync(`ALTER TABLE moles ADD COLUMN user_id TEXT;`); } catch {}
   try { db.execSync(`ALTER TABLE settings ADD COLUMN user_id TEXT;`); } catch {}
+
+  // Migration: flag results produced by the demo generator (not the model),
+  // so the UI can badge them instead of passing them off as real analyses.
+  try { db.execSync(`ALTER TABLE moles ADD COLUMN is_mock INTEGER DEFAULT 0;`); } catch {}
 
   // BACKFILL: assign orphan rows (user_id IS NULL) to the first existing user
   // or fall back to a sentinel '__legacy__' so the records aren't lost.
@@ -208,8 +216,8 @@ export function insertMole(mole: Omit<Mole, 'id'>): number {
   const result = db.runSync(
     `INSERT INTO moles
        (name, loc, score, risk, days, changed, size, since, image_uri,
-        abcde_json, history_json, summary, rec, last_analyzed_at, user_id)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        abcde_json, history_json, summary, rec, last_analyzed_at, is_mock, user_id)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     [
       mole.name,
       mole.loc,
@@ -225,6 +233,7 @@ export function insertMole(mole: Omit<Mole, 'id'>): number {
       mole.summary,
       mole.rec,
       new Date().toISOString(),
+      mole.isMock ? 1 : 0,
       currentUserId,
     ],
   );
@@ -235,6 +244,7 @@ export interface UpdateScoreExtras {
   imageUri?: string;
   summary?: string;
   rec?: string;
+  isMock?: boolean;
 }
 
 export function updateMoleScore(
@@ -263,7 +273,7 @@ export function updateMoleScore(
   db.runSync(
     `UPDATE moles
      SET score = ?, risk = ?, changed = ?, abcde_json = ?, history_json = ?, days = 0,
-         last_analyzed_at = ?,
+         last_analyzed_at = ?, is_mock = ?,
          image_uri = COALESCE(?, image_uri),
          summary   = COALESCE(?, summary),
          rec       = COALESCE(?, rec)
@@ -275,6 +285,7 @@ export function updateMoleScore(
       JSON.stringify(abcde),
       JSON.stringify(history),
       new Date().toISOString(),
+      extras?.isMock ? 1 : 0,
       extras?.imageUri ?? null,
       extras?.summary  ?? null,
       extras?.rec      ?? null,
@@ -345,5 +356,7 @@ function deserializeMole(row: any): Mole {
     history: JSON.parse(row.history_json || '[]'),
     summary: row.summary,
     rec: row.rec,
+    lastAnalyzedAt: row.last_analyzed_at ?? undefined,
+    isMock: !!row.is_mock,
   };
 }

@@ -24,14 +24,10 @@ export interface AnalysisResult {
   isMock?: boolean;
 }
 
-// ── Russian ABCDE notes keyed by score bucket (low / mid / high) ──────────────
-const ABCDE_NOTES: Record<string, string[]> = {
-  asymmetry: ['Симметричная', 'Лёгкая асимметрия', 'Выраженная по двум осям'],
-  border:    ['Чёткие ровные края', 'Края слегка размыты', 'Нечёткие неровные края'],
-  color:     ['Однородный', 'Неоднородный', 'Неоднородный тёмный'],
-  diameter:  ['< 3 мм, стабильный', '~5 мм, стабильный', '> 6 мм, увеличился'],
-  evolution: ['Без изменений', 'Небольшие изменения', 'Рост за последние месяцы'],
-};
+// ABCDE notes are stored in the DB as i18n KEYS ('abcde.<criterion>.<bucket>')
+// and localized at render time (AbcdeCard runs them through t()). Legacy rows
+// hold plain Russian text — t() returns unknown keys unchanged, so they still
+// display.
 
 const SUMMARIES: Record<RiskLevel, { summary: string; rec: string }> = {
   low: {
@@ -80,10 +76,8 @@ function applyProfileModifiers(base: number): number {
 }
 
 function noteForScore(key: string, s: number): string {
-  const notes = ABCDE_NOTES[key];
-  if (s <= 3) return notes[0]!;
-  if (s <= 6) return notes[1]!;
-  return notes[2]!;
+  const bucket = s <= 3 ? 0 : s <= 6 ? 1 : 2;
+  return `abcde.${key}.${bucket}`;
 }
 
 function buildResult(
@@ -160,6 +154,7 @@ export async function analyzeImage(uri: string): Promise<AnalysisResult> {
         out.rec,
         out.risk,
         out.score,
+        { noLesionDetected: out.noLesionDetected },
       );
     } catch (err) {
       warnOnce(err);

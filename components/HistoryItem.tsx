@@ -37,7 +37,7 @@ export function HistoryItem({ mole, onPress }: HistoryItemProps) {
 
         <View style={styles.meta}>
           <Text style={styles.name} numberOfLines={1}>{mole.name}</Text>
-          <Text style={styles.loc}>{mole.loc} · {mole.size}</Text>
+          <Text style={styles.loc}>{mole.loc} · {mole.since}</Text>
         </View>
 
         <View style={{ alignItems: 'flex-end' }}>

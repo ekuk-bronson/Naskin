@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from 'expo-router';
+import Constants from 'expo-constants';
 import { getAllMoles, getSetting, setSetting, type Mole } from '../../services/storage';
 import { exportToPdf } from '../../services/pdfExport';
 import { requestPermissions, scheduleReminder, cancelReminder, getNextReminderDate } from '../../services/notifications';
@@ -17,6 +18,9 @@ import { useTextScale } from '../../services/textScale';
 const BG = '#F1EFEA', DARK = '#141412', STONE = '#2B3BEF', DIM = '#6E6C66', FAINT = '#C5BDB4', BORDER = '#EDE9E3';
 
 const INTERVAL_DAYS = [7, 14, 30] as const;
+
+/** Single source of truth for the displayed version — app.json. */
+const appVersion = Constants.expoConfig?.version ?? '1.0.0';
 
 // ---------------------------------------------------------------------------
 // Sub-components
@@ -306,7 +310,7 @@ export default function ProfileScreen() {
                   <View style={[s.dot, { backgroundColor: cfg.color }]} />
                   <View>
                     <Text style={s.reportMole}>{m.name}</Text>
-                    <Text style={s.reportLoc}>{m.loc} · {m.size}</Text>
+                    <Text style={s.reportLoc}>{m.loc} · {m.since}</Text>
                   </View>
                 </View>
                 <View style={{ alignItems: 'flex-end' }}>
@@ -364,16 +368,14 @@ export default function ProfileScreen() {
           disabled={exporting}
           onPress={async () => {
             if (moles.length === 0) {
-              Alert.alert('Нет данных', 'Добавьте хотя бы одну родинку для отчёта.', [{ text: 'Понятно' }]);
+              Alert.alert(t('profile.pdfNoData'), t('profile.pdfNoDataMsg'), [{ text: t('common.ok') }]);
               return;
             }
             setExporting(true);
             try {
-              const res = await exportToPdf(moles, user?.name ?? 'Пользователь');
-              if (res === 'not_installed')
-                Alert.alert('Требуется установка', 'Выполните:\n\nnpx expo install expo-print expo-sharing', [{ text: 'Понятно' }]);
-              else if (res === 'error')
-                Alert.alert('Ошибка', 'Не удалось создать PDF.', [{ text: 'Понятно' }]);
+              const res = await exportToPdf(moles, user?.name ?? (locale === 'en' ? 'User' : 'Пользователь'));
+              if (res !== 'ok')
+                Alert.alert(t('common.error'), t('profile.pdfErr'), [{ text: t('common.ok') }]);
             } finally {
               setExporting(false);
             }
@@ -384,7 +386,7 @@ export default function ProfileScreen() {
         {/* Обязательный медицинский дисклеймер */}
         <Text style={[s.disclaimer, { fontSize: Math.round(11 * fontScale) }]}>{t('disclaimer')}</Text>
 
-        <Text style={s.version}>{t('profile.versionLine')}</Text>
+        <Text style={s.version}>{t('profile.versionLine').replace('{v}', appVersion)}</Text>
       </ScrollView>
 
       <ProfileEditModal

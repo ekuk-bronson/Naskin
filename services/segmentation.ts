@@ -46,17 +46,27 @@ interface RunnableModel {
 }
 
 /**
+ * Outcome of a segmentation attempt. Distinguishes "the model ran and found
+ * no lesion" (a user-facing signal: retake the photo) from "the feature is
+ * unavailable" (infra: silently fall back to the classifier-derived proxy).
+ */
+export type SegOutcome =
+  | { kind: 'ok'; metrics: LesionMetrics }
+  | { kind: 'no-lesion' }
+  | { kind: 'unavailable' };
+
+const UNAVAILABLE: SegOutcome = { kind: 'unavailable' };
+
+/**
  * Decode the photo to raw 256×256 RGB, run the segmentation model, and
- * compute real ABCD metrics from the mask. Returns null if anything the
- * feature depends on (jpeg-js, model output) is unavailable — the caller
- * then falls back to the classifier-derived ABCD proxy.
+ * compute real ABCD metrics from the mask.
  */
 export async function segmentAndMeasure(
   segModel: RunnableModel,
   imageUri: string,
-): Promise<LesionMetrics | null> {
+): Promise<SegOutcome> {
   const jpeg = loadJpeg();
-  if (!jpeg) return null;
+  if (!jpeg) return UNAVAILABLE;
 
   // Raw bilinear resize to 256×256 (no clinical pipeline), as base64 JPEG.
   const resized = await ImageManipulator.manipulateAsync(
@@ -64,10 +74,10 @@ export async function segmentAndMeasure(
     [{ resize: { width: SEG_SIZE, height: SEG_SIZE } }],
     { compress: 1, base64: true, format: ImageManipulator.SaveFormat.JPEG },
   );
-  if (!resized.base64) return null;
+  if (!resized.base64) return UNAVAILABLE;
 
   const { data: rgba, width, height } = jpeg.decode(base64ToBytes(resized.base64), { useTArray: true });
-  if (width !== SEG_SIZE || height !== SEG_SIZE) return null;
+  if (width !== SEG_SIZE || height !== SEG_SIZE) return UNAVAILABLE;
 
   const n = SEG_SIZE * SEG_SIZE;
   const rgb = new Uint8Array(n * 3);
@@ -81,7 +91,8 @@ export async function segmentAndMeasure(
   const buf = input.buffer.slice(input.byteOffset, input.byteOffset + input.byteLength) as ArrayBuffer;
   const out = segModel.runSync([buf])[0];
   const mask = out instanceof Float32Array ? out : new Float32Array(out as ArrayBuffer);
-  if (mask.length !== n) return null;
+  if (mask.length !== n) return UNAVAILABLE;
 
-  return computeLesionMetrics(mask, rgb, SEG_SIZE, SEG_SIZE);
+  const metrics = computeLesionMetrics(mask, rgb, SEG_SIZE, SEG_SIZE);
+  return metrics ? { kind: 'ok', metrics } : { kind: 'no-lesion' };
 }

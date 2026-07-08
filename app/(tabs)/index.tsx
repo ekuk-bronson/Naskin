@@ -75,8 +75,9 @@ export default function HomeScreen() {
 
   const sorted = [...moles].sort((a, b) => {
     if (sortBy === 'score') return b.score - a.score;
-    if (sortBy === 'name')  return a.name.localeCompare(b.name, 'ru');
-    return 0;
+    if (sortBy === 'name')  return a.name.localeCompare(b.name, locale);
+    // date: newest scan first (ISO strings compare lexicographically)
+    return (b.lastAnalyzedAt ?? '').localeCompare(a.lastAnalyzedAt ?? '');
   });
 
   // 5 categorisations collapsed to 3 buckets for the hero badges:
@@ -128,7 +129,7 @@ export default function HomeScreen() {
                   <Text style={[s.heroCount, { fontSize: Math.round(56 * fontScale) }]} adjustsFontSizeToFit minimumFontScale={0.6} numberOfLines={1}>{moles.length}</Text>
                   <Text style={[s.heroMeta, { fontSize: Math.round(11 * fontScale) }]} numberOfLines={1}>
                     {moles.length
-                      ? `${t('home.heroLastCheck')} ${moles[0]?.days ?? 0} ${locale === 'en' ? 'days ago' : 'дн. назад'}`
+                      ? `${t('home.heroLastCheck')} ${Math.min(...moles.map((m) => m.days))} ${locale === 'en' ? 'days ago' : 'дн. назад'}`
                       : t('home.heroEmpty')}
                   </Text>
                 </View>

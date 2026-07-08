@@ -6,10 +6,13 @@
  *
  * Falls back gracefully when packages are not installed.
  */
+import Constants from 'expo-constants';
 import type { Mole } from './storage';
 import { getSetting } from './storage';
 import { RISK_LEVELS, MEDICAL_DISCLAIMER } from '../constants/riskLevels';
 import { t } from './i18n';
+
+const APP_VERSION = Constants.expoConfig?.version ?? '1.0.0';
 
 // HTML helpers — никаких числовых score в выводе для пользователя
 function recBlock(rec: string, color: string): string {
@@ -27,7 +30,7 @@ function moleSection(m: Mole): string {
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
       <div>
         <div style="font-size:15px;font-weight:800;color:#1C1A18;letter-spacing:-0.3px">${m.name}</div>
-        <div style="font-size:11px;color:#9A9087;margin-top:3px">${m.loc ?? '—'} · ${m.size ?? '—'} · с ${m.since ?? '—'}</div>
+        <div style="font-size:11px;color:#9A9087;margin-top:3px">${m.loc ?? '—'} · с ${m.since ?? '—'}</div>
       </div>
       <div style="text-align:right">
         <div style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:99px;background:${color}15;border:1px solid ${color}40">
@@ -133,7 +136,7 @@ function buildHtml(moles: Mole[], userName: string): string {
     </div>
     <div style="font-size:10px;color:#C5BDB4;line-height:1.6;text-align:center;margin-top:8px">
       Все данные хранятся исключительно на устройстве пользователя и не передаются третьим лицам.<br/>
-      v0.1.0 · ${now.getFullYear()}
+      v${APP_VERSION} · ${now.getFullYear()}
     </div>
   </div>
 

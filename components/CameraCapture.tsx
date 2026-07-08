@@ -39,6 +39,7 @@ export function CameraCapture({ onCapture, onClose, onPickGallery }: CameraCaptu
   const { t } = useLocale();
   const [permission, requestPermission] = useCameraPermissions();
   const cameraRef = useRef<CameraView>(null);
+  const capturing = useRef(false);
   const [flash, setFlash] = useState(false);
   const [zoom, setZoom] = useState(0.15);
   const [distState, setDistState] = useState<DistanceState>('good');
@@ -82,11 +83,15 @@ export function CameraCapture({ onCapture, onClose, onPickGallery }: CameraCaptu
   }
 
   const capture = async () => {
+    if (capturing.current) return; // debounce double-taps on the shutter
+    capturing.current = true;
     try {
       const photo = await cameraRef.current?.takePictureAsync({ quality: 0.92 });
       if (photo?.uri) onCapture(photo.uri);
     } catch {
       // unavailable in simulator
+    } finally {
+      capturing.current = false;
     }
   };
 

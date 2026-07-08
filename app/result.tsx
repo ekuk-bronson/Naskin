@@ -145,7 +145,7 @@ export default function ResultScreen() {
             <Text style={[s.heroLevel, { color: cfg.color, fontWeight: cfg.weight, fontSize: Math.round(24 * fontScale) }]}
               adjustsFontSizeToFit minimumFontScale={0.6} numberOfLines={1}>{lvlLabel(mole.risk)}</Text>
             <Text style={[s.heroRec, { color: cfg.color, fontSize: Math.round(12 * fontScale) }]} numberOfLines={2}>{lvlRec(mole.risk)}</Text>
-            <Text style={[s.heroMeta, { fontSize: Math.round(11 * fontScale) }]} numberOfLines={1}>Ø {mole.size} · {mole.days} {locale === 'en' ? 'days ago' : 'дн. назад'}</Text>
+            <Text style={[s.heroMeta, { fontSize: Math.round(11 * fontScale) }]} numberOfLines={1}>{mole.days} {locale === 'en' ? 'days ago' : 'дн. назад'}</Text>
           </View>
           {mole.changed && (
             <View style={s.heroChangedBadge}><Text style={s.heroChangedTxt}>{t('result.changedHero')}</Text></View>
@@ -186,6 +186,14 @@ export default function ResultScreen() {
         {/* Анализ — MVP: только категория + рекомендация + дисклеймер */}
         {tab === 'info' && (
           <>
+            {/* Honesty badge: this result came from the demo generator, not the model */}
+            {mole.isMock && (
+              <View style={s.mockBadge}>
+                <View style={s.mockDot} />
+                <Text style={[s.mockTxt, { fontSize: Math.round(11 * fontScale) }]}>{t('analysis.mock')}</Text>
+              </View>
+            )}
+
             <View style={[s.summaryBox, { borderColor: cfg.colorBorder, backgroundColor: cfg.colorBg }]}>
               <Text style={[s.summaryTxt, { fontSize: Math.round(12 * fontScale) }]}>{lvlSummary(mole.risk)}</Text>
               <Text style={[s.recTxt, { color: cfg.color, fontSize: Math.round(12 * fontScale) }]}>→ {lvlRec(mole.risk)}</Text>
@@ -339,6 +347,9 @@ const s = StyleSheet.create({
   tabBtnActive:    { borderColor: DARK, backgroundColor: DARK },
   tabBtnTxt:       { fontSize: 11, color: FAINT, letterSpacing: 0.2, fontWeight: '500' },
   tabBtnTxtActive: { color: '#F0EDE8', fontFamily: Font.bodySemiBold },
+  mockBadge:       { flexDirection: 'row', alignItems: 'center', gap: 8, borderWidth: 1, borderColor: '#EDE9E3', backgroundColor: '#FBFAF7', borderRadius: 0, paddingHorizontal: 12, paddingVertical: 8, marginTop: 4, marginBottom: 8 },
+  mockDot:         { width: 7, height: 7, backgroundColor: STONE },
+  mockTxt:         { fontSize: 11, color: STONE, fontFamily: Font.bodyMed, letterSpacing: 0.2, flex: 1 },
   summaryBox:      { borderWidth: 1, borderRadius: 0, padding: 16, marginTop: 4 },
   summaryTxt:      { fontSize: 12, color: DIM, lineHeight: 20, marginBottom: 8 },
   recTxt:          { fontSize: 12, fontFamily: Font.bodyMed },

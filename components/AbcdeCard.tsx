@@ -9,11 +9,13 @@ import Animated, {
   Easing,
 } from 'react-native-reanimated';
 import { Font } from '../constants/theme';
-import { ABCDE_LABELS, scoreColor } from '../constants/riskLevels';
+import { scoreColor } from '../constants/riskLevels';
+import { useLocale } from '../services/i18n';
 import type { ABCDEScore } from '../services/storage';
 
 const DARK  = '#141412';
 const DIM   = '#6E6C66';
+const FAINT = '#C5BDB4';
 
 interface ABCDEData {
   asymmetry: ABCDEScore;
@@ -32,30 +34,34 @@ function AbcdeRow({
   label, score, note, color, index,
 }: { label: string; score: number; note: string; color: string; index: number }) {
   const delay = index * 90;
+  // score < 0 is the "no data yet" sentinel (e.g. Evolution before a rescan).
+  const noData = score < 0;
+  const target = noData ? 0 : score;
 
   // Bar fill on the UI thread (smooth), mirrors the web `.animate-progress`.
   const w = useSharedValue(0);
   useEffect(() => {
-    w.value = withDelay(delay + 120, withTiming(score * 10, {
+    w.value = withDelay(delay + 120, withTiming(target * 10, {
       duration: 650, easing: Easing.out(Easing.cubic),
     }));
-  }, [score]);
+  }, [target]);
   const barStyle = useAnimatedStyle(() => ({ width: `${w.value}%` }));
 
   // Count-up of the numeric score.
   const [disp, setDisp] = useState(0);
   useEffect(() => {
+    if (noData) return;
     let raf = 0;
     const start = Date.now();
     const tick = () => {
       const t = (Date.now() - start - delay - 120) / 650;
       if (t <= 0) { raf = requestAnimationFrame(tick); return; }
-      setDisp(t >= 1 ? score : score * easeOutCubic(t));
+      setDisp(t >= 1 ? target : target * easeOutCubic(t));
       if (t < 1) raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [score]);
+  }, [target]);
 
   return (
     <Animated.View
@@ -64,7 +70,9 @@ function AbcdeRow({
     >
       <View style={styles.row}>
         <Text style={styles.label}>{label}</Text>
-        <Text style={[styles.score, { color }]}>{disp.toFixed(1)}/10</Text>
+        <Text style={[styles.score, { color: noData ? FAINT : color }]}>
+          {noData ? '—' : `${disp.toFixed(1)}/10`}
+        </Text>
       </View>
       <View style={styles.barBg}>
         <Animated.View style={[styles.barFill, barStyle, { backgroundColor: color }]} />
@@ -75,6 +83,7 @@ function AbcdeRow({
 }
 
 export function AbcdeCard({ abcde }: { abcde: ABCDEData }) {
+  const { t } = useLocale();
   return (
     <>
       {KEYS.map((key, i) => {
@@ -83,10 +92,12 @@ export function AbcdeCard({ abcde }: { abcde: ABCDEData }) {
           <AbcdeRow
             key={key}
             index={i}
-            label={ABCDE_LABELS[key]}
+            label={t(`abcde.lbl.${key}`)}
             score={val.s}
-            note={val.n}
-            color={scoreColor(val.s)}
+            // Notes are stored as i18n keys; legacy rows hold plain text,
+            // which t() returns unchanged.
+            note={t(val.n)}
+            color={scoreColor(Math.max(0, val.s))}
           />
         );
       })}

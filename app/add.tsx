@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Font } from '../constants/theme';
 import {
-  Alert, Animated, Modal, ScrollView, StyleSheet,
+  Alert, Animated, BackHandler, Modal, ScrollView, StyleSheet,
   Text, TextInput, TouchableOpacity, View, useWindowDimensions,
 } from 'react-native';
 import { Image } from 'expo-image';
@@ -93,6 +93,14 @@ export default function AddScreen() {
 
   const qualityOk = !quality || quality.ok || qualityIgnored;
 
+  // Android hardware back must not pop the screen mid-analysis — runAnalysis
+  // ends with router.replace, which would otherwise navigate from a dead screen.
+  useEffect(() => {
+    if (step !== 3) return;
+    const sub = BackHandler.addEventListener('hardwareBackPress', () => true);
+    return () => sub.remove();
+  }, [step]);
+
   // Start pulse + progress when entering step 3
   useEffect(() => {
     if (step !== 3) return;
@@ -131,21 +139,42 @@ export default function AddScreen() {
     if (!imageUri) return;
     try {
       const result = await analyzeImage(imageUri);
+
+      // No lesion in the frame → nothing to save; ask for a retake.
+      if (result.noLesionDetected) {
+        Alert.alert(t('analysis.noLesion'), t('analysis.noLesionHint'), [
+          { text: t('add.retake'), onPress: () => { setImageUri(null); setStep(2); } },
+        ]);
+        return;
+      }
+
       const now    = new Date();
       const MONTHS_RU = ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'];
       const MONTHS_EN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
       const m      = (locale === 'en' ? MONTHS_EN : MONTHS_RU)[now.getMonth()]!;
 
-      if (isRescan && moleId) {
+      if (isRescan && moleId && existingMole) {
+        // E (Evolution) is temporal — derive it from the score change between
+        // scans instead of the single-frame proxy the analyzer fills in.
+        const delta = result.score - existingMole.score;
+        result.abcde.evolution =
+          Math.abs(delta) < 0.5 ? { s: 1, n: 'abcde.evo.stable' }
+          : delta > 0           ? { s: Math.min(10, parseFloat((4 + delta * 1.5).toFixed(1))), n: 'abcde.evo.up' }
+          :                       { s: 2, n: 'abcde.evo.down' };
+
         // Update existing mole — append history point + refresh image/text
         const pt: MoleHistoryPoint = { m, s: result.score };
-        const extras: UpdateScoreExtras = { imageUri, summary: result.summary, rec: result.rec };
+        const extras: UpdateScoreExtras = { imageUri, summary: result.summary, rec: result.rec, isMock: result.isMock };
         updateMoleScore(moleId, result.score, result.risk, result.abcde, pt, extras);
         if (result.risk === 'high' || result.risk === 'urgent') {
           scheduleHighRiskReminder(moleId, existingMole?.name ?? t('add.placeholderName')).catch(() => {});
         }
         router.replace({ pathname: '/result', params: { id: String(moleId) } });
       } else {
+        // First scan — there is no history yet, so E is honestly "no data".
+        // s: -1 is the AbcdeCard sentinel for "—".
+        result.abcde.evolution = { s: -1, n: 'abcde.evo.first' };
+
         const name = moleName.trim() || defaultName;
         const draft: Omit<Mole, 'id'> = {
           name,
@@ -161,6 +190,7 @@ export default function AddScreen() {
           history:  [{ m, s: result.score }],
           summary:  result.summary,
           rec:      result.rec,
+          isMock:   result.isMock,
         };
         const newId = insertMole(draft);
         if (result.risk === 'high' || result.risk === 'urgent') {

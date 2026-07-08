@@ -83,6 +83,8 @@ export interface ModelOutput {
   };
   summary: string;
   rec:     string;
+  /** True when the segmentation model ran and found no lesion in the frame. */
+  noLesionDetected?: boolean;
 }
 
 // Russian copy lives in i18n.ts via risk.* keys; this is the inference-time
@@ -388,10 +390,12 @@ class MoleClassifier {
     // ── Real A/B/C/D from the lesion segmentation mask ──
     // Overrides the classifier-derived proxy when the seg model is present.
     // Evolution (E) stays temporal / proxy — it needs history, not one frame.
+    let noLesionDetected = false;
     if (this.segModel) {
       try {
-        const m = await segmentAndMeasure(this.segModel, imageUri);
-        if (m) {
+        const seg = await segmentAndMeasure(this.segModel, imageUri);
+        if (seg.kind === 'ok') {
+          const m = seg.metrics;
           // metrics ∈ [0,1]; modest gains so a genuinely irregular lesion
           // reaches a meaningful score. Tune once validated on device.
           abcde.asymmetry = toScore(clamp01(m.asymmetry * 2.5));
@@ -404,6 +408,12 @@ class MoleClassifier {
             `C=${abcde.color} D=${abcde.diameter} (colors=${m.raw.colorCount}, ` +
             `circularity=${m.raw.circularity.toFixed(2)}, coverage=${m.raw.coverage.toFixed(2)})`,
           );
+        } else if (seg.kind === 'no-lesion') {
+          // The mask is empty — a classifier score for this frame would be
+          // meaningless. Caller shows "no mole found, retake" instead.
+          noLesionDetected = true;
+          // eslint-disable-next-line no-console
+          console.log('[ModelRunner] segmentation found no lesion in frame');
         }
       } catch (e) {
         // eslint-disable-next-line no-console
@@ -415,7 +425,7 @@ class MoleClassifier {
     const risk   = getRiskLevel(score);
     const sizeMm = Math.max(2, Math.round(score * 0.8 + 1));
 
-    return { score, risk, sizeMm, abcde, ...SUMMARIES[risk] };
+    return { score, risk, sizeMm, abcde, noLesionDetected, ...SUMMARIES[risk] };
   }
 }
 
