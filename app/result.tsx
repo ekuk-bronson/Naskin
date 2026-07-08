@@ -8,6 +8,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { getMole, updateMoleMeta, type Mole } from '../services/storage';
 import { LineChart } from '../components/LineChart';
+import { AbcdeCard } from '../components/AbcdeCard';
 import { RISK_LEVELS, scoreColor, getRiskLevel } from '../constants/riskLevels';
 import { useLocale } from '../services/i18n';
 import { useTextScale } from '../services/textScale';
@@ -190,6 +191,14 @@ export default function ResultScreen() {
               <Text style={[s.recTxt, { color: cfg.color, fontSize: Math.round(12 * fontScale) }]}>→ {lvlRec(mole.risk)}</Text>
             </View>
 
+            {/* Разбор ABCDE (реальные метрики из маски сегментации) */}
+            {mole.abcde?.asymmetry && (
+              <>
+                <Text style={s.abcdeSectionLbl}>ABCDE</Text>
+                <AbcdeCard abcde={mole.abcde} />
+              </>
+            )}
+
             {/* Обязательный медицинский дисклеймер */}
             <View style={s.disclaimerBox}>
               <Text style={[s.disclaimerTxt, { fontSize: Math.round(11 * fontScale) }]}>{t('disclaimer')}</Text>
@@ -333,6 +342,7 @@ const s = StyleSheet.create({
   summaryBox:      { borderWidth: 1, borderRadius: 0, padding: 16, marginTop: 4 },
   summaryTxt:      { fontSize: 12, color: DIM, lineHeight: 20, marginBottom: 8 },
   recTxt:          { fontSize: 12, fontFamily: Font.bodyMed },
+  abcdeSectionLbl: { fontFamily: Font.mono, fontSize: 11, color: DIM, letterSpacing: 1, textTransform: 'uppercase', marginTop: 4, marginBottom: 8 },
   abcdeLink:       { alignSelf: 'center', marginTop: 12, marginBottom: 4, paddingVertical: 8, paddingHorizontal: 16 },
   abcdeLinkTxt:    { fontSize: 12, color: STONE, fontFamily: Font.bodyMed, letterSpacing: 0.2 },
   disclaimerBox:   { marginTop: 12, paddingVertical: 12, paddingHorizontal: 14, borderRadius: 0, borderWidth: 1, borderColor: '#EDE9E3', backgroundColor: '#FBFAF7' },
