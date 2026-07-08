@@ -76,21 +76,29 @@ export function computeLesionMetrics(
   const lambdaMax = (mu20 + mu02 + common) / 2;
   const lambdaMin = (mu20 + mu02 - common) / 2;
 
-  // ── 2. Border: perimeter (4-neighbour boundary) → circularity ──
-  let perimeter = 0;
+  // ── 2. Border: denoise contour, then perimeter → circularity ──
+  // The raw 256² segmentation contour is pixel-jagged (staircase + model
+  // noise); counting boundary pixels on it over-estimates the perimeter and
+  // makes even round lesions read as high-border. Smooth the mask first —
+  // a genuinely irregular border survives a 3×3 blur, single-pixel jaggies
+  // do not. Correction 1.12 is calibrated on synthetic disks so a clean
+  // circle yields circularity ≈ 1 (radius-invariant across r=30..100).
+  const maskS = smoothMask(mask, w, h);
+  let areaS = 0, perimeter = 0;
   for (let y = 0; y < h; y++) {
     for (let x = 0; x < w; x++) {
-      if (mask[y * w + x] <= THRESH) continue;
+      if (!maskS[y * w + x]) continue;
+      areaS++;
       const edge =
         x === 0 || y === 0 || x === w - 1 || y === h - 1 ||
-        mask[y * w + (x - 1)] <= THRESH || mask[y * w + (x + 1)] <= THRESH ||
-        mask[(y - 1) * w + x] <= THRESH || mask[(y + 1) * w + x] <= THRESH;
+        !maskS[y * w + (x - 1)] || !maskS[y * w + (x + 1)] ||
+        !maskS[(y - 1) * w + x] || !maskS[(y + 1) * w + x];
       if (edge) perimeter++;
     }
   }
-  // Staircase perimeter over-counts ~ (π/2)/(1+? ); 0.95 is a standard nudge.
-  const perimCorr = perimeter * 0.95;
-  const circularity = clamp01((4 * Math.PI * area) / (perimCorr * perimCorr));
+  const perimCorr = perimeter * 1.12; // clean disk → circularity ≈ 1
+  const circularity =
+    perimeter > 0 ? clamp01((4 * Math.PI * areaS) / (perimCorr * perimCorr)) : 1;
   const border = clamp01(1 - circularity);
 
   // ── 3. Asymmetry: fold in principal-axis coords, measure non-overlap ──
@@ -176,4 +184,36 @@ function nearestClinicalColor(r: number, g: number, b: number): number {
 
 function clamp01(v: number): number {
   return v < 0 ? 0 : v > 1 ? 1 : Number.isFinite(v) ? v : 0;
+}
+
+/**
+ * Separable 3×3 box blur of the binarized mask, re-thresholded at 0.5.
+ * Strips single-pixel contour noise (which inflates the perimeter and thus
+ * the Border score) while leaving genuine irregularity intact. Accepts a
+ * sigmoid [0,1] or binary mask; returns a {0,1} Uint8Array. Edges clamp.
+ */
+function smoothMask(mask: ArrayLike<number>, w: number, h: number): Uint8Array {
+  const tmp = new Float32Array(w * h);
+  const out = new Uint8Array(w * h);
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
+      let s = 0;
+      for (let k = -1; k <= 1; k++) {
+        const xx = x + k < 0 ? 0 : x + k >= w ? w - 1 : x + k;
+        s += mask[y * w + xx] > THRESH ? 1 : 0;
+      }
+      tmp[y * w + x] = s / 3;
+    }
+  }
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
+      let s = 0;
+      for (let k = -1; k <= 1; k++) {
+        const yy = y + k < 0 ? 0 : y + k >= h ? h - 1 : y + k;
+        s += tmp[yy * w + x];
+      }
+      out[y * w + x] = s / 3 >= 0.5 ? 1 : 0;
+    }
+  }
+  return out;
 }
