@@ -52,7 +52,10 @@
         }
       ],
       "expo-sqlite",
-      "react-native-fast-tflite"
+      "react-native-fast-tflite",
+      "expo-font",
+      "expo-web-browser",
+      "expo-asset"
     ],
     "experiments": {
       "typedRoutes": true,
