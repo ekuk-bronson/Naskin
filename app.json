@@ -1,24 +1,24 @@
 {
   "expo": {
-    "name": "FreeSkinApp",
-    "slug": "FreeSkinApp",
+    "name": "Naskin",
+    "slug": "naskin",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "freeskinapp",
+    "scheme": "naskin",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.freeskin.app",
+      "bundleIdentifier": "com.naskin.app",
       "infoPlist": {
-        "NSCameraUsageDescription": "FreeSkin использует камеру для фотографирования родинок.",
-        "NSPhotoLibraryUsageDescription": "FreeSkin сохраняет и загружает фото родинок из галереи.",
-        "NSUserNotificationsUsageDescription": "FreeSkin отправляет напоминания о повторной проверке родинок."
+        "NSCameraUsageDescription": "Naskin использует камеру для фотографирования родинок.",
+        "NSPhotoLibraryUsageDescription": "Naskin сохраняет и загружает фото родинок из галереи.",
+        "NSUserNotificationsUsageDescription": "Naskin отправляет напоминания о повторной проверке родинок."
       }
     },
     "android": {
-      "package": "com.freeskin.app",
+      "package": "com.naskin.app",
       "permissions": [
         "android.permission.CAMERA"
       ],

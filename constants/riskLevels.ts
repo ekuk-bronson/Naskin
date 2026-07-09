@@ -141,4 +141,4 @@ export const ABCDE_LABELS: Record<string, string> = {
  * For locale-aware UI prefer `t('disclaimer')` from `services/i18n`.
  */
 export const MEDICAL_DISCLAIMER =
-  'Это не диагноз. FreeSkin не является медицинским устройством. Обратитесь к врачу.';
+  'Это не диагноз. Naskin не является медицинским устройством. Обратитесь к врачу.';

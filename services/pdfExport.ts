@@ -1,5 +1,5 @@
 /**
- * PDF report export for FreeSkin.
+ * PDF report export for Naskin.
  *
  * Requires (run once before using):
  *   npx expo install expo-print expo-sharing
@@ -80,14 +80,14 @@ function buildHtml(moles: Mole[], userName: string): string {
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>FreeSkin — Отчёт дерматоскрининга</title>
+  <title>Naskin — Отчёт дерматоскрининга</title>
 </head>
 <body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F8F6F3;margin:0;padding:24px;color:#1C1A18">
 
   <!-- Header -->
   <div style="background:#1C1A18;border-radius:20px;padding:22px 24px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center">
     <div>
-      <div style="font-size:22px;font-weight:800;color:#F0EDE8;letter-spacing:-0.8px">FreeSkin</div>
+      <div style="font-size:22px;font-weight:800;color:#F0EDE8;letter-spacing:-0.8px">Naskin</div>
       <div style="font-size:9px;font-weight:600;color:#8B7355;letter-spacing:2px;text-transform:uppercase;margin-top:4px">AI · Дерматоскрининг</div>
     </div>
     <div style="text-align:right">
@@ -159,7 +159,7 @@ export async function exportToPdf(moles: Mole[], userName: string): Promise<'ok'
     if (canShare) {
       await Sharing.shareAsync(uri, {
         mimeType: 'application/pdf',
-        dialogTitle: 'Сохранить отчёт FreeSkin',
+        dialogTitle: 'Сохранить отчёт Naskin',
         UTI: 'com.adobe.pdf',
       });
     }

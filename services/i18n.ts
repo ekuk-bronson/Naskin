@@ -1,5 +1,5 @@
 /**
- * Lightweight i18n for FreeSkin (RU / EN).
+ * Lightweight i18n for Naskin (RU / EN).
  *
  * Usage:
  *   import { t, useLocale } from '../services/i18n';
@@ -28,7 +28,7 @@ const dict: Record<Locale, Record<string, string>> = {
     'common.ok':             'Понятно',
 
     // Disclaimer
-    'disclaimer':            'Это не диагноз. FreeSkin не является медицинским устройством. Обратитесь к врачу.',
+    'disclaimer':            'Это не диагноз. Naskin не является медицинским устройством. Обратитесь к врачу.',
 
     // Login
     'login.tagline':         'AI · Дерматоскрининг',
@@ -161,7 +161,7 @@ const dict: Record<Locale, Record<string, string>> = {
     'risk.urgent.label':     'Срочно к врачу',
 
     // Notifications
-    'notif.title':           'FreeSkin — время проверить родинки 🔍',
+    'notif.title':           'Naskin — время проверить родинки 🔍',
     'notif.body':            'Прошло {days} дн. Сделай фото и отследи изменения.',
     'notif.highTitle':       '⚠ {name} требует внимания',
     'notif.highBody':        'Высокий риск. Рекомендуем обратиться к дерматологу в течение 2 недель.',
@@ -200,7 +200,7 @@ const dict: Record<Locale, Record<string, string>> = {
 
     // Profile extras
     'profile.noData':        'Нет данных для отчёта',
-    'profile.versionLine':   'FreeSkin v{v}  ·  AI-дерматоскрининг',
+    'profile.versionLine':   'Naskin v{v}  ·  AI-дерматоскрининг',
     'profile.pdfNoData':     'Нет данных',
     'profile.pdfNoDataMsg':  'Добавьте хотя бы одну родинку для отчёта.',
     'profile.pdfErr':        'Не удалось создать PDF.',
@@ -346,7 +346,7 @@ const dict: Record<Locale, Record<string, string>> = {
     'common.error':          'Error',
     'common.ok':             'OK',
 
-    'disclaimer':            'This is not a diagnosis. FreeSkin is not a medical device. Please consult a doctor.',
+    'disclaimer':            'This is not a diagnosis. Naskin is not a medical device. Please consult a doctor.',
 
     'login.tagline':         'AI · Dermascreening',
     'login.heroTitle':       'Mole monitoring\non your smartphone',
@@ -469,7 +469,7 @@ const dict: Record<Locale, Record<string, string>> = {
     'risk.high.label':       'High risk',
     'risk.urgent.label':     'See a doctor urgently',
 
-    'notif.title':           'FreeSkin — time to check your moles 🔍',
+    'notif.title':           'Naskin — time to check your moles 🔍',
     'notif.body':             '{days} days have passed. Take a photo and track changes.',
     'notif.highTitle':        '⚠ {name} needs attention',
     'notif.highBody':         'High risk. We recommend seeing a dermatologist within 2 weeks.',
@@ -502,7 +502,7 @@ const dict: Record<Locale, Record<string, string>> = {
     'result.dynLabel':       'SCORE DYNAMICS',
 
     'profile.noData':        'No data for the report',
-    'profile.versionLine':   'FreeSkin v{v}  ·  AI dermascreening',
+    'profile.versionLine':   'Naskin v{v}  ·  AI dermascreening',
     'profile.pdfNoData':     'No data',
     'profile.pdfNoDataMsg':  'Add at least one mole to build a report.',
     'profile.pdfErr':        'Could not create the PDF.',

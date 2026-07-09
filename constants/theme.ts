@@ -1,5 +1,5 @@
 /**
- * FreeSkin design system — unified with the web (Naskin-web).
+ * Naskin design system — unified with the web (Naskin-web).
  * Swiss grid / brutalism: paper + ink + cobalt accent, semantic risk colors,
  * hard offset shadows, square corners, Unbounded / Inter Tight / JetBrains Mono.
  *

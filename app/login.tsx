@@ -106,7 +106,7 @@ export default function LoginScreen() {
           text: t('common.continue'),
           onPress: () => signIn({
             id: 'guest',
-            email: 'guest@freeskin.app',
+            email: 'guest@naskin.app',
             name: locale === 'en' ? 'Guest' : 'Гость',
             avatarUrl: undefined,
           }),
@@ -131,7 +131,7 @@ export default function LoginScreen() {
             <View style={styles.logoInner} />
           </View>
         </View>
-        <Text style={[styles.appName, { fontSize: Math.round(32 * fontScale) }]}>FreeSkin</Text>
+        <Text style={[styles.appName, { fontSize: Math.round(32 * fontScale) }]}>Naskin</Text>
         <Text style={[styles.tagline, { fontSize: Math.round(10 * fontScale) }]}>{t('login.tagline')}</Text>
       </View>
 
@@ -189,7 +189,7 @@ export default function LoginScreen() {
       </View>
 
       {/* ── Version ───────────────────────────────────── */}
-      <Text style={styles.version}>FreeSkin v{Constants.expoConfig?.version ?? '1.0.0'}</Text>
+      <Text style={styles.version}>Naskin v{Constants.expoConfig?.version ?? '1.0.0'}</Text>
     </SafeAreaView>
   );
 }

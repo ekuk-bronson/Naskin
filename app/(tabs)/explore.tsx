@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect, useRouter } from 'expo-router';
+import Constants from 'expo-constants';
 import * as Haptics from 'expo-haptics';
 import { getSetting, setSetting, deleteAllMolesForCurrentUser } from '../../services/storage';
 import { useLocale, setLocale } from '../../services/i18n';
@@ -163,17 +164,17 @@ export default function SettingsScreen() {
   };
 
   const handlePrivacyPolicy = () => {
-    Linking.openURL('https://freeskin.app/privacy').catch(() =>
+    Linking.openURL('https://naskin.app/privacy').catch(() =>
       Alert.alert(
         t('settings.privacy'),
-        'https://freeskin.app/privacy',
+        'https://naskin.app/privacy',
         [{ text: t('common.ok') }],
       ),
     );
   };
 
   const handleContactDev = () => {
-    Linking.openURL('mailto:support@freeskin.app?subject=FreeSkin%20Feedback').catch(() =>
+    Linking.openURL('mailto:support@naskin.app?subject=Naskin%20Feedback').catch(() =>
       Alert.alert(t('common.error'), 'mailto: not supported', [{ text: t('common.ok') }]),
     );
   };
@@ -286,11 +287,11 @@ export default function SettingsScreen() {
         <SettingsCard>
           <View style={styles.appInfoBlock}>
             <View style={styles.appInfoLeft}>
-              <Text style={styles.appInfoAppName}>FreeSkin</Text>
+              <Text style={styles.appInfoAppName}>Naskin</Text>
               <Text style={styles.appInfoAppSub}>{t('login.tagline').toUpperCase()}</Text>
             </View>
             <View style={styles.appInfoRight}>
-              <Text style={styles.appInfoVersion}>v0.1.0</Text>
+              <Text style={styles.appInfoVersion}>v{Constants.expoConfig?.version ?? '1.0.0'}</Text>
               <Text style={styles.appInfoSdk}>Expo SDK 54</Text>
             </View>
           </View>

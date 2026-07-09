@@ -278,7 +278,7 @@ export default function ProfileScreen() {
         <View style={s.reportCard}>
           <View style={s.reportHead}>
             <View>
-              <Text style={s.reportName}>FreeSkin</Text>
+              <Text style={s.reportName}>Naskin</Text>
               <Text style={s.reportSub}>{t('login.tagline').toUpperCase()}</Text>
             </View>
             <View style={{ alignItems: 'flex-end' }}>

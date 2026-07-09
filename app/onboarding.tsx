@@ -152,7 +152,7 @@ function buildSlides(t: (k: string) => string, locale: 'ru' | 'en'): Slide[] {
     {
       id: 'welcome',
       sup:   locale === 'en' ? 'WELCOME' : 'ДОБРО ПОЖАЛОВАТЬ',
-      title: 'FreeSkin',
+      title: 'Naskin',
       body:  t('ob.welcomeSub'),
       Visual: VisualWelcome, hasBody: true,
       visualProps: { tagline: t('login.tagline') },

@@ -4,7 +4,7 @@
  * SETUP — Google OAuth client IDs:
  *   1. Go to https://console.cloud.google.com → APIs & Services → Credentials
  *   2. Create "OAuth 2.0 Client IDs" for:
- *        • Web (needed for Expo Go dev)  → add redirect URI: https://auth.expo.io/@your-expo-username/FreeSkinApp
+ *        • Web (needed for Expo Go dev)  → add redirect URI: https://auth.expo.io/@your-expo-username/naskin
  *        • Android                       → SHA-1 from `npx expo credentials:manager`
  *        • iOS                           → Bundle ID from app.json
  *   3. Create a file called  .env  in the project root:
